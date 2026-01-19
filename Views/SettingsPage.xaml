@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:constants="clr-namespace:zuoleme.Constants"
+             x:Class="zuoleme.Views.SettingsPage"
+             Title="设置"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="24">
+            
+      
+
+            <!-- App Info Card -->
+            <Border StrokeThickness="0"
+                   Padding="20">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#E3F2FD" Offset="0.0" />
+                        <GradientStop Color="#BBDEFB" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.15" Radius="12" Offset="0,4"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="16">
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="12">
+                        <Label Text="{x:Static constants:MaterialIcons.Favorite}"
+                               FontFamily="MaterialIcons"
+                               FontSize="48"
+                               TextColor="#E91E63"/>
+                        <Label Text="做了么"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               TextColor="#2196F3"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                    <Label Text="Version 1.0.0"
+                           FontSize="14"
+                           TextColor="#1976D2"
+                           HorizontalOptions="Center"/>
+                    <Label Text="记录你的健康生活"
+                           FontSize="14"
+                           TextColor="#1976D2"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Settings Options -->
+            <VerticalStackLayout Spacing="12">
+                
+                <!-- Health Settings Section -->
+                <Label Text="健康设置"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="{DynamicResource Gray900}"
+                       Margin="0,10,0,5"/>
+
+                <Border BackgroundColor="{DynamicResource CardBackground}"
+                       StrokeThickness="0"
+                       Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="20">
+                        <!-- Age Setting -->
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="年龄设置"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="{DynamicResource Gray900}"/>
+                            
+                            <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="12">
+                                <VerticalStackLayout Grid.Column="0" Spacing="4">
+                                    <Label Text="{Binding AgeRangeText}"
+                                           FontSize="14"
+                                           TextColor="{DynamicResource Gray700}"/>
+                                    <Label Text="{Binding RecommendedText}"
+                                           FontSize="14"
+                                           TextColor="{DynamicResource Primary}"
+                                           FontAttributes="Bold"/>
+                                </VerticalStackLayout>
+                                
+                                <Button Grid.Column="1"
+                                       Text="-"
+                                       FontSize="24"
+                                       FontAttributes="Bold"
+                                       BackgroundColor="{DynamicResource Gray200}"
+                                       TextColor="{DynamicResource Gray900}"
+                                       WidthRequest="50"
+                                       HeightRequest="50"
+                                       CornerRadius="25"
+                                       Command="{Binding DecreaseAgeCommand}"/>
+                                
+                                <Label Grid.Column="2"
+                                      Text="{Binding Age}"
+                                      FontSize="32"
+                                      FontAttributes="Bold"
+                                      TextColor="{DynamicResource Primary}"
+                                      WidthRequest="60"
+                                      HorizontalTextAlignment="Center"
+                                      VerticalOptions="Center"/>
+                                
+                                <Button Grid.Column="3"
+                                       Text="+"
+                                       FontSize="24"
+                                       FontAttributes="Bold"
+                                       BackgroundColor="{DynamicResource Primary}"
+                                       TextColor="White"
+                                       WidthRequest="50"
+                                       HeightRequest="50"
+                                       CornerRadius="25"
+                                       Command="{Binding IncreaseAgeCommand}"/>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <!-- Age Ranges Info -->
+                        <Border BackgroundColor="{DynamicResource Gray100}"
+                               StrokeThickness="0"
+                               Padding="12">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8"/>
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="6">
+                                <HorizontalStackLayout Spacing="6">
+                                    <Label Text="{x:Static constants:MaterialIcons.Info}"
+                                           FontFamily="MaterialIcons"
+                                           FontSize="18"
+                                           TextColor="{DynamicResource Primary}"/>
+                                    <Label Text="年龄与建议频率"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="{DynamicResource Gray900}"/>
+                                </HorizontalStackLayout>
+                                <Label Text="• 20岁以下：每周4次"
+                                       FontSize="12"
+                                       TextColor="{DynamicResource Gray700}"/>
+                                <Label Text="• 20-30岁：每周3次"
+                                       FontSize="12"
+                                       TextColor="{DynamicResource Gray700}"/>
+                                <Label Text="• 30-40岁：每周2次"
+                                       FontSize="12"
+                                       TextColor="{DynamicResource Gray700}"/>
+                                <Label Text="• 40-50岁：每周2次"
+                                       FontSize="12"
+                                       TextColor="{DynamicResource Gray700}"/>
+                                <Label Text="• 50岁以上：每周1次"
+                                       FontSize="12"
+                                       TextColor="{DynamicResource Gray700}"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+                
+                <!-- Data Management Section -->
+                <Label Text="数据管理"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="{DynamicResource Gray900}"
+                       Margin="0,10,0,5"/>
+
+                <Border BackgroundColor="{DynamicResource CardBackground}"
+                       StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout>
+                        <!-- Export Data -->
+                        <Grid Padding="16" ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static constants:MaterialIcons.Save}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="24" 
+                                   TextColor="{DynamicResource Gray600}"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1" 
+                                   Text="导出数据" 
+                                   FontSize="16"
+                                   TextColor="{DynamicResource Gray900}"
+                                   VerticalOptions="Center" 
+                                   Margin="12,0,0,0"/>
+                            <Label Grid.Column="2" 
+                                   Text="{x:Static constants:MaterialIcons.ChevronRight}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="28" 
+                                   TextColor="{DynamicResource Gray400}" 
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <BoxView HeightRequest="1" Color="{DynamicResource Gray200}"/>
+                        
+                        <!-- Import Data -->
+                        <Grid Padding="16" ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static constants:MaterialIcons.Download}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="24" 
+                                   TextColor="{DynamicResource Gray600}"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1" 
+                                   Text="导入数据" 
+                                   FontSize="16"
+                                   TextColor="{DynamicResource Gray900}"
+                                   VerticalOptions="Center" 
+                                   Margin="12,0,0,0"/>
+                            <Label Grid.Column="2" 
+                                   Text="{x:Static constants:MaterialIcons.ChevronRight}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="28" 
+                                   TextColor="{DynamicResource Gray400}" 
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <BoxView HeightRequest="1" Color="{DynamicResource Gray200}"/>
+                        
+                        <!-- Clear All Data -->
+                        <Grid Padding="16" ColumnDefinitions="Auto,*,Auto">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ClearDataCommand}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static constants:MaterialIcons.DeleteForever}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="24" 
+                                   TextColor="#EF5350"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1" 
+                                   Text="清空所有数据" 
+                                   FontSize="16" 
+                                   TextColor="#EF5350" 
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center" 
+                                   Margin="12,0,0,0"/>
+                            <Label Grid.Column="2" 
+                                   Text="{x:Static constants:MaterialIcons.ChevronRight}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="28" 
+                                   TextColor="{DynamicResource Gray400}" 
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Appearance Section -->
+                <Label Text="外观"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="{DynamicResource Gray900}"
+                       Margin="0,20,0,5"/>
+
+                <Border BackgroundColor="{DynamicResource CardBackground}"
+                       StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout>
+                        <!-- 跟随系统主题 -->
+                        <Grid Padding="16" ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static constants:MaterialIcons.Brightness}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="24" 
+                                   TextColor="{DynamicResource Gray600}"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1" 
+                                   Text="跟随系统主题" 
+                                   FontSize="16"
+                                   TextColor="{DynamicResource Gray900}"
+                                   VerticalOptions="Center" 
+                                   Margin="12,0,0,0"/>
+                            <Switch Grid.Column="2" 
+                                   VerticalOptions="Center" 
+                                   IsToggled="{Binding UseSystemTheme}"/>
+                        </Grid>
+                        
+                        <BoxView HeightRequest="1" Color="{DynamicResource Gray200}"/>
+                        
+                        <!-- 暗色模式 -->
+                        <Grid Padding="16" ColumnDefinitions="Auto,*,Auto"
+                              IsEnabled="{Binding UseSystemTheme, Converter={StaticResource InvertedBoolConverter}}">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static constants:MaterialIcons.DarkMode}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="24" 
+                                   TextColor="{DynamicResource Gray600}"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1" 
+                                   Text="暗色模式" 
+                                   FontSize="16"
+                                   TextColor="{DynamicResource Gray900}"
+                                   VerticalOptions="Center" 
+                                   Margin="12,0,0,0"/>
+                            <Switch Grid.Column="2" 
+                                   VerticalOptions="Center" 
+                                   IsToggled="{Binding IsDarkMode}"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Privacy Section -->
+                <Label Text="隐私与安全"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="{DynamicResource Gray900}"
+                       Margin="0,20,0,5"/>
+
+                <Border BackgroundColor="{DynamicResource CardBackground}"
+                       StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout>
+                        <Grid Padding="16" ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static constants:MaterialIcons.Lock}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="24" 
+                                   TextColor="{DynamicResource Gray600}"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1" 
+                                   Text="密码保护" 
+                                   FontSize="16"
+                                   TextColor="{DynamicResource Gray900}"
+                                   VerticalOptions="Center" 
+                                   Margin="12,0,0,0"/>
+                            <Switch Grid.Column="2" 
+                                   VerticalOptions="Center" 
+                                   IsToggled="False"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- About Section -->
+                <Label Text="关于"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="{DynamicResource Gray900}"
+                       Margin="0,20,0,5"/>
+
+                <Border BackgroundColor="{DynamicResource CardBackground}"
+                       StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout>
+                        <!-- User Guide -->
+                        <Grid Padding="16" ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static constants:MaterialIcons.Book}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="24" 
+                                   TextColor="{DynamicResource Gray600}"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1" 
+                                   Text="使用说明" 
+                                   FontSize="16"
+                                   TextColor="{DynamicResource Gray900}"
+                                   VerticalOptions="Center" 
+                                   Margin="12,0,0,0"/>
+                            <Label Grid.Column="2" 
+                                   Text="{x:Static constants:MaterialIcons.ChevronRight}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="28" 
+                                   TextColor="{DynamicResource Gray400}" 
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <BoxView HeightRequest="1" Color="{DynamicResource Gray200}"/>
+                        
+                        <!-- Version Update -->
+                        <Grid Padding="16" ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static constants:MaterialIcons.Notifications}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="24" 
+                                   TextColor="{DynamicResource Gray600}"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1" 
+                                   Text="版本更新" 
+                                   FontSize="16"
+                                   TextColor="{DynamicResource Gray900}"
+                                   VerticalOptions="Center" 
+                                   Margin="12,0,0,0"/>
+                            <Label Grid.Column="2" 
+                                   Text="{x:Static constants:MaterialIcons.ChevronRight}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="28" 
+                                   TextColor="{DynamicResource Gray400}" 
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                        
+                        <BoxView HeightRequest="1" Color="{DynamicResource Gray200}"/>
+                        
+                        <!-- Privacy Policy -->
+                        <Grid Padding="16" ColumnDefinitions="Auto,*,Auto">
+                            <Label Grid.Column="0" 
+                                   Text="{x:Static constants:MaterialIcons.Info}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="24" 
+                                   TextColor="{DynamicResource Gray600}"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="1" 
+                                   Text="隐私政策" 
+                                   FontSize="16"
+                                   TextColor="{DynamicResource Gray900}"
+                                   VerticalOptions="Center" 
+                                   Margin="12,0,0,0"/>
+                            <Label Grid.Column="2" 
+                                   Text="{x:Static constants:MaterialIcons.ChevronRight}" 
+                                   FontFamily="MaterialIcons"
+                                   FontSize="28" 
+                                   TextColor="{DynamicResource Gray400}" 
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Copyright -->
+            <Label Text="© 2026 linweijian"
+                   FontSize="12"
+                   TextColor="{DynamicResource Gray500}"
+                   HorizontalOptions="Center"
+                   Margin="0,40,0,20"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

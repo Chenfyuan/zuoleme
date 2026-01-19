@@ -1,0 +1,304 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:constants="clr-namespace:zuoleme.Constants"
+             x:Class="zuoleme.Views.HomePage"
+             Title="主页"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <ScrollView>
+        <Grid>
+            <VerticalStackLayout Padding="24" Spacing="24">
+                
+                <!-- Header -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="12" Margin="0,20,0,0">
+                    <Label Text="{x:Static constants:MaterialIcons.Favorite}"
+                           FontFamily="MaterialIcons"
+                           FontSize="36"
+                           TextColor="{DynamicResource Primary}"
+                           VerticalOptions="Center"/>
+                    <Label Text="今天你做了么？"
+                           FontSize="32"
+                           TextColor="{DynamicResource Gray900}"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <!-- Main Action Button -->
+                <Border x:Name="MainButton"
+                        StrokeThickness="0"
+                        HeightRequest="140"
+                        WidthRequest="140"
+                        HorizontalOptions="Center"
+                        Margin="0,20,0,10">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#2196F3" Offset="0.0" />
+                            <GradientStop Color="#1976D2" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="70"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="#2196F3" 
+                                Opacity="0.5"
+                                Radius="20"
+                                Offset="0,8"/>
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMainButtonTapped" />
+                    </Border.GestureRecognizers>
+                    
+                    <VerticalStackLayout x:Name="ButtonContent"
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center" 
+                                       Spacing="4">
+                        <Label x:Name="PlusIcon"
+                               Text="{x:Static constants:MaterialIcons.Add}"
+                               FontFamily="MaterialIcons"
+                               FontSize="48"
+                               TextColor="White"
+                               HorizontalOptions="Center"/>
+                        <Label Text="来一发"
+                               FontSize="14"
+                               TextColor="White"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            
+
+                <!-- Health Status Card -->
+                <Border x:Name="HealthCard"
+                       StrokeThickness="0"
+                       Padding="20"
+                       Margin="0,0,0,10">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#E3F2FD" Offset="0.0" />
+                            <GradientStop Color="#BBDEFB" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="16"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black" Opacity="0.15" Radius="12" Offset="0,4"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="12">
+                        <!-- Status Header -->
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                            <Label Grid.Column="0"
+                                   Text="{Binding HealthStatusIcon}"
+                                   FontFamily="MaterialIcons"
+                                   FontSize="32"
+                                   TextColor="{Binding HealthStatusColor}"
+                                   VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                <Label Text="{Binding HealthStatusTitle}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="{Binding HealthStatusColor}"/>
+                                <Label Text="{Binding HealthStatusMessage}"
+                                       FontSize="14"
+                                       TextColor="{DynamicResource Gray700}"/>
+                            </VerticalStackLayout>
+                            <Label Grid.Column="2"
+                                   Text="{Binding WeekProgressText}"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="{Binding HealthProgressColor}"
+                                   VerticalOptions="Center"/>
+                        </Grid>
+
+                        <!-- Progress Bar -->
+                        <ProgressBar x:Name="HealthProgressBar"
+                                    Progress="{Binding WeekProgress}"
+                                    HeightRequest="8"
+                                    ProgressColor="#2196F3"/>
+
+                        <!-- Recommendation -->
+                        <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
+                            <Label Text="{x:Static constants:MaterialIcons.Lightbulb}"
+                                   FontFamily="MaterialIcons"
+                                   FontSize="18"
+                                   TextColor="{DynamicResource Gray600}"/>
+                            <Label Text="{Binding RecommendedText}"
+                                   FontSize="14"
+                                   TextColor="{DynamicResource Gray700}"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Quick Stats -->
+                <Grid ColumnDefinitions="*,*" 
+                      ColumnSpacing="12"
+                      Margin="0,10,0,20">
+                    
+                    <!-- Today -->
+                    <Border Grid.Column="0"
+                           BackgroundColor="{DynamicResource CardBackground}"
+                           StrokeThickness="0"
+                           Padding="16"
+                           HeightRequest="100">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" VerticalOptions="Center">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="6">
+                                <Label Text="{x:Static constants:MaterialIcons.Event}"
+                                       FontFamily="MaterialIcons"
+                                       FontSize="20"
+                                       TextColor="{DynamicResource Gray600}"/>
+                                <Label Text="今日"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{DynamicResource Gray600}"/>
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding TodayCount}"
+                                   FontSize="32"
+                                   FontAttributes="Bold"
+                                   TextColor="{DynamicResource Primary}"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Total -->
+                    <Border Grid.Column="1"
+                           BackgroundColor="{DynamicResource CardBackground}"
+                           StrokeThickness="0"
+                           Padding="16"
+                           HeightRequest="100">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                        </Border.Shadow>
+                        <VerticalStackLayout Spacing="8" VerticalOptions="Center">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="6">
+                                <Label Text="{x:Static constants:MaterialIcons.TrendingUp}"
+                                       FontFamily="MaterialIcons"
+                                       FontSize="20"
+                                       TextColor="{DynamicResource Gray600}"/>
+                                <Label Text="总计"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{DynamicResource Gray600}"/>
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding TotalCount}"
+                                   FontSize="32"
+                                   FontAttributes="Bold"
+                                   TextColor="{DynamicResource Gray900}"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <!-- Recent Records -->
+                <HorizontalStackLayout Spacing="8" Margin="0,20,0,10">
+                    <Label Text="{x:Static constants:MaterialIcons.Description}"
+                           FontFamily="MaterialIcons"
+                           FontSize="28"
+                           TextColor="{DynamicResource Gray900}"/>
+                    <Label Text="最近记录"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="{DynamicResource Gray900}"/>
+                </HorizontalStackLayout>
+
+                <!-- Records List (Last 5) -->
+                <CollectionView ItemsSource="{Binding RecentRecords}"
+                                SelectionMode="None"
+                                EmptyView="暂无记录，点击上方按钮添加">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView Margin="0,6">
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem Text="删除"
+                                                   BackgroundColor="#EF5350"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteRecordCommand}"
+                                                   CommandParameter="{Binding Id}"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                
+                                <Border BackgroundColor="{DynamicResource CardBackground}"
+                                       StrokeThickness="0"
+                                       Padding="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12"/>
+                                    </Border.StrokeShape>
+                                    <Border.Shadow>
+                                        <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                                    </Border.Shadow>
+                                    <Grid ColumnDefinitions="Auto,*,Auto" 
+                                          Padding="16"
+                                          ColumnSpacing="12">
+                                        <!-- Icon -->
+                                        <Border Grid.Column="0"
+                                                BackgroundColor="{DynamicResource Primary}"
+                                                StrokeThickness="0"
+                                                HeightRequest="48"
+                                                WidthRequest="48"
+                                                VerticalOptions="Center">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="24"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="{x:Static constants:MaterialIcons.Favorite}"
+                                                   FontFamily="MaterialIcons"
+                                                   FontSize="28"
+                                                   TextColor="White"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"/>
+                                        </Border>
+                                        
+                                        <!-- Date and Time -->
+                                        <VerticalStackLayout Grid.Column="1" 
+                                                           Spacing="4"
+                                                           VerticalOptions="Center">
+                                            <Label Text="{Binding Timestamp, StringFormat='{0:yyyy年MM月dd日}'}"
+                                                   FontSize="16"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{DynamicResource Gray900}"/>
+                                            <HorizontalStackLayout Spacing="6">
+                                                <Label Text="{x:Static constants:MaterialIcons.Schedule}"
+                                                       FontFamily="MaterialIcons"
+                                                       FontSize="16"
+                                                       TextColor="{DynamicResource Gray600}"
+                                                       VerticalOptions="Center"/>
+                                                <Label Text="{Binding Timestamp, StringFormat='{0:HH:mm:ss}'}"
+                                                       FontSize="14"
+                                                       TextColor="{DynamicResource Gray600}"
+                                                       VerticalOptions="Center"/>
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                        
+                                        <!-- Arrow -->
+                                        <Label Grid.Column="2"
+                                               Text="{x:Static constants:MaterialIcons.ChevronRight}"
+                                               FontFamily="MaterialIcons"
+                                               FontSize="32"
+                                               TextColor="{DynamicResource Gray400}"
+                                               VerticalOptions="Center"/>
+                                    </Grid>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+            
+            <!-- Particle Container (覆盖在所有内容之上) -->
+            <AbsoluteLayout x:Name="ParticleContainer"
+                           InputTransparent="True"
+                           IsVisible="False"/>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

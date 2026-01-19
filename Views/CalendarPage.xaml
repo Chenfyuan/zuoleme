@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:constants="clr-namespace:zuoleme.Constants"
+             x:Class="zuoleme.Views.CalendarPage"
+             Title="日历"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- 强度等级颜色转换器会在代码中定义 -->
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="20">
+            
+            
+            <!-- 月份导航 -->
+            <Border BackgroundColor="{DynamicResource CardBackground}"
+                   StrokeThickness="0"
+                   Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                </Border.Shadow>
+                <Grid ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="12">
+                    <Button Grid.Column="0"
+                            Text="{x:Static constants:MaterialIcons.ChevronLeft}"
+                            FontFamily="MaterialIcons"
+                            BackgroundColor="Transparent"
+                            TextColor="{DynamicResource Primary}"
+                            FontSize="28"
+                            Command="{Binding PreviousMonthCommand}"
+                            Padding="8"/>
+                    
+                    <VerticalStackLayout Grid.Column="1" 
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Center">
+                        <Label Text="{Binding MonthYearDisplay}"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource Gray900}"
+                               HorizontalOptions="Center"/>
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                            <Label Text="{x:Static constants:MaterialIcons.Favorite}"
+                                   FontFamily="MaterialIcons"
+                                   FontSize="14"
+                                   TextColor="{DynamicResource Primary}"/>
+                            <Label Text="{Binding SelectedMonthRecordCount, StringFormat='本月 {0} 次'}"
+                                   FontSize="14"
+                                   TextColor="{DynamicResource Gray600}"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                    
+                    <Button Grid.Column="2"
+                            Text="今天"
+                            BackgroundColor="Transparent"
+                            TextColor="{DynamicResource Primary}"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            Command="{Binding TodayCommand}"
+                            Padding="12,8"/>
+                    
+                    <Button Grid.Column="3"
+                            Text="{x:Static constants:MaterialIcons.ChevronRight}"
+                            FontFamily="MaterialIcons"
+                            BackgroundColor="Transparent"
+                            TextColor="{DynamicResource Primary}"
+                            FontSize="28"
+                            Command="{Binding NextMonthCommand}"
+                            Padding="8"/>
+                </Grid>
+            </Border>
+
+            <!-- 星期标题 -->
+            <Grid ColumnDefinitions="*,*,*,*,*,*,*" ColumnSpacing="4">
+                <Label Grid.Column="0" Text="日" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{DynamicResource Gray700}" FontSize="14"/>
+                <Label Grid.Column="1" Text="一" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{DynamicResource Gray700}" FontSize="14"/>
+                <Label Grid.Column="2" Text="二" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{DynamicResource Gray700}" FontSize="14"/>
+                <Label Grid.Column="3" Text="三" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{DynamicResource Gray700}" FontSize="14"/>
+                <Label Grid.Column="4" Text="四" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{DynamicResource Gray700}" FontSize="14"/>
+                <Label Grid.Column="5" Text="五" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{DynamicResource Gray700}" FontSize="14"/>
+                <Label Grid.Column="6" Text="六" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{DynamicResource Gray700}" FontSize="14"/>
+            </Grid>
+
+            <!-- 日历网格 -->
+            <CollectionView ItemsSource="{Binding CalendarDays}"
+                           SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                   Span="7"
+                                   HorizontalItemSpacing="4"
+                                   VerticalItemSpacing="4"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeThickness="0"
+                               HeightRequest="65"
+                               Padding="4">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8"/>
+                            </Border.StrokeShape>
+                            <Border.Triggers>
+                                <!-- 根据强度等级设置背景色 -->
+                                <DataTrigger TargetType="Border" Binding="{Binding IntensityLevel}" Value="0">
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource Gray100}"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border" Binding="{Binding IntensityLevel}" Value="1">
+                                    <Setter Property="BackgroundColor" Value="#FFE0E9"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border" Binding="{Binding IntensityLevel}" Value="2">
+                                    <Setter Property="BackgroundColor" Value="#FFB3CF"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border" Binding="{Binding IntensityLevel}" Value="3">
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource Primary}"/>
+                                </DataTrigger>
+                            </Border.Triggers>
+                            <Grid>
+                                <!-- 今天标记 -->
+                                <Border IsVisible="{Binding IsToday}"
+                                       StrokeThickness="2"
+                                       Stroke="{DynamicResource Primary}"
+                                       BackgroundColor="Transparent">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8"/>
+                                    </Border.StrokeShape>
+                                </Border>
+                                
+                                <VerticalStackLayout Spacing="2" 
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Center">
+                                    <Label Text="{Binding DayNumber}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"
+                                           TextColor="{DynamicResource Gray900}"
+                                           Opacity="{Binding TextOpacity}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IntensityLevel}" Value="3">
+                                                <Setter Property="TextColor" Value="White"/>
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IsToday}" Value="True">
+                                                <Setter Property="TextColor" Value="{DynamicResource Primary}"/>
+                                                <Setter Property="FontSize" Value="18"/>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    
+                                    <Label Text="{Binding RecordCountDisplay}"
+                                           FontSize="12"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"
+                                           TextColor="{DynamicResource Gray700}"
+                                           IsVisible="{Binding HasRecords}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IntensityLevel}" Value="3">
+                                                <Setter Property="TextColor" Value="White"/>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    
+                                    <Label Text="{x:Static constants:MaterialIcons.Favorite}"
+                                           FontFamily="MaterialIcons"
+                                           FontSize="12"
+                                           TextColor="{DynamicResource Primary}"
+                                           HorizontalOptions="Center"
+                                           IsVisible="{Binding HasRecords}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" Binding="{Binding IntensityLevel}" Value="3">
+                                                <Setter Property="TextColor" Value="White"/>
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- 图例说明 -->
+            <Border BackgroundColor="{DynamicResource CardBackground}"
+                   StrokeThickness="0"
+                   Padding="16"
+                   Margin="0,10,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="12">
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="{x:Static constants:MaterialIcons.Info}"
+                               FontFamily="MaterialIcons"
+                               FontSize="20"
+                               TextColor="{DynamicResource Primary}"/>
+                        <Label Text="图例说明"
+                               FontSize="16"
+                               TextColor="{DynamicResource Gray900}"
+                               FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
+                    
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" 
+                          ColumnSpacing="12" RowSpacing="8">
+                        
+                        <Border Grid.Row="0" Grid.Column="0"
+                               BackgroundColor="{DynamicResource Gray100}"
+                               WidthRequest="30" HeightRequest="30"
+                               StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="6"/>
+                            </Border.StrokeShape>
+                        </Border>
+                        <Label Grid.Row="0" Grid.Column="1" 
+                               Text="无记录" 
+                               TextColor="{DynamicResource Gray900}"
+                               VerticalOptions="Center"/>
+                        
+                        <Border Grid.Row="1" Grid.Column="0"
+                               BackgroundColor="#FFE0E9"
+                               WidthRequest="30" HeightRequest="30"
+                               StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="6"/>
+                            </Border.StrokeShape>
+                        </Border>
+                        <Label Grid.Row="1" Grid.Column="1" 
+                               Text="1 次" 
+                               TextColor="{DynamicResource Gray900}"
+                               VerticalOptions="Center"/>
+                        
+                        <Border Grid.Row="2" Grid.Column="0"
+                               BackgroundColor="#FFB3CF"
+                               WidthRequest="30" HeightRequest="30"
+                               StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="6"/>
+                            </Border.StrokeShape>
+                        </Border>
+                        <Label Grid.Row="2" Grid.Column="1" 
+                               Text="2 次" 
+                               TextColor="{DynamicResource Gray900}"
+                               VerticalOptions="Center"/>
+                        
+                        <Border Grid.Row="3" Grid.Column="0"
+                               BackgroundColor="{DynamicResource Primary}"
+                               WidthRequest="30" HeightRequest="30"
+                               StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="6"/>
+                            </Border.StrokeShape>
+                        </Border>
+                        <Label Grid.Row="3" Grid.Column="1" 
+                               Text="3 次及以上" 
+                               TextColor="{DynamicResource Gray900}"
+                               VerticalOptions="Center"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
