@@ -37,10 +37,10 @@ jobs:
         run: dotnet restore zuoleme.csproj /p:TargetFrameworks=net10.0-android
 
       - name: Build Android APK
-        run: dotnet build zuoleme.csproj -c Release -f net10.0-android /p:AndroidPackageFormat=apk
+        run: dotnet build zuoleme.csproj -c Release /p:TargetFrameworks=net10.0-android /p:AndroidPackageFormat=apk
 
       - name: Build Android AAB
-        run: dotnet publish zuoleme.csproj -c Release -f net10.0-android /p:AndroidPackageFormat=aab
+        run: dotnet publish zuoleme.csproj -c Release /p:TargetFrameworks=net10.0-android /p:AndroidPackageFormat=aab
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v4
