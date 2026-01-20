@@ -28,13 +28,13 @@ jobs:
         run: dotnet workload install maui-maccatalyst maui-ios
 
       - name: Restore dependencies
-        run: dotnet restore zuoleme.csproj /p:TargetFramework=net10.0-maccatalyst
+        run: dotnet restore zuoleme.csproj /p:TargetFrameworks=net10.0-maccatalyst
 
       - name: Build macOS Catalyst
-        run: dotnet build zuoleme.csproj -c Release  -f net10.0-maccatalyst /p:TargetFramework=net10.0-maccatalyst
+        run: dotnet build zuoleme.csproj -c Release  -f net10.0-maccatalyst /p:TargetFrameworks=net10.0-maccatalyst
 
       - name: Publish macOS Catalyst
-        run: dotnet publish zuoleme.csproj -c Release /p:TargetFramework=net10.0-maccatalyst -p:CreatePackage=true
+        run: dotnet publish zuoleme.csproj -c Release /p:TargetFrameworks=net10.0-maccatalyst -p:CreatePackage=true
 
       - name: Upload macOS App
         uses: actions/upload-artifact@v4
