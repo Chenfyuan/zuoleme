@@ -13,6 +13,51 @@ permissions:
   contents: read
 
 jobs:
+ build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: '11'
+
+      - name: Install MAUI workload
+        run: dotnet workload install maui-android
+
+      - name: Restore dependencies
+        run: dotnet restore zuoleme.csproj -f net10.0-android
+
+      - name: Build Android APK
+        run: dotnet build zuoleme.csproj -c Release -f net10.0-android /p:AndroidPackageFormat=apk
+
+      - name: Build Android AAB
+        run: dotnet publish zuoleme.csproj -c Release -f net10.0-android /p:AndroidPackageFormat=aab
+
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: |
+            **/*-Signed.apk
+            **/com.linweijian.zuoleme-Signed.apk
+
+      - name: Upload Android AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-aab
+          path: |
+            **/*-Signed.aab
+            **/com.linweijian.zuoleme-Signed.aab
+
  build-windows:
   runs-on: windows-latest
   steps:
@@ -46,3 +91,4 @@ jobs:
         name: windows-exe
         path: bin/Release/net10.0-windows10.0.19041.0/win-x64/publish/
         if-no-files-found: warn
+        
