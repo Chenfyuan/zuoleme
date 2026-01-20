@@ -1,50 +1,50 @@
 namespace zuoleme.Constants
 {
     /// <summary>
-    /// Material Symbols ×ÖÌåÍ¼±ê³£Á¿
-    /// Ê¹ÓÃ·½·¨£ºText="{x:Static constants:MaterialIcons.Home}"
+    /// Material Symbols å­—ä½“å›¾æ ‡å¸¸é‡
+    /// ä½¿ç”¨æ–¹æ³•ï¼šText="{x:Static constants:MaterialIcons.Home}"
     /// </summary>
     public static class MaterialIcons
     {
-        // µ¼º½Í¼±ê
-        public const string Home = "\ue88a";           // Ö÷Ò³
-        public const string Assessment = "\ue85c";      // Í³¼Æ
-        public const string CalendarToday = "\ue935";  // ÈÕÀú
-        public const string Settings = "\ue8b8";        // ÉèÖÃ
+        // å¯¼èˆªå›¾æ ‡
+        public const string Home = "\ue88a";           // é¦–é¡µ
+        public const string Assessment = "\ue85c";      // ç»Ÿè®¡
+        public const string CalendarToday = "\ue935";  // æ—¥å†
+        public const string Settings = "\ue8b8";        // è®¾ç½®
         
-        // ¹¦ÄÜÍ¼±ê
-        public const string Favorite = "\ue87d";        // °®ĞÄ ??
-        public const string Add = "\ue145";             // ¼ÓºÅ +
-        public const string Delete = "\ue872";          // É¾³ı
-        public const string ChevronRight = "\ue5cc";    // ÓÒ¼ıÍ· ?
-        public const string ChevronLeft = "\ue5cb";     // ×ó¼ıÍ· ?
+        // æ“ä½œå›¾æ ‡
+        public const string Favorite = "\ue87d";        // çˆ±å¿ƒ â¤ï¸
+        public const string Add = "\ue145";             // åŠ å· +
+        public const string Delete = "\ue872";          // åˆ é™¤
+        public const string ChevronRight = "\ue5cc";    // å³ç®­å¤´ â†’
+        public const string ChevronLeft = "\ue5cb";     // å·¦ç®­å¤´ â†
         
-        // ×´Ì¬Í¼±ê
-        public const string Schedule = "\ue8b5";        // Ê±¼ä ?
-        public const string TrendingUp = "\ue8e5";      // ÉÏÉıÇ÷ÊÆ ??
-        public const string Event = "\ue878";           // ÈÕÀú ??
-        public const string Description = "\ue873";     // ÎÄµµ ??
-        public const string Lightbulb = "\ue0f0";       // µÆÅİ ??
+        // çŠ¶æ€å›¾æ ‡
+        public const string Schedule = "\ue8b5";        // æ—¶é’Ÿ ğŸ•
+        public const string TrendingUp = "\ue8e5";      // è¶‹åŠ¿ä¸Šå‡ ğŸ“ˆ
+        public const string Event = "\ue878";           // äº‹ä»¶ ğŸ“…
+        public const string Description = "\ue873";     // æ–‡æ¡£ ğŸ“„
+        public const string Lightbulb = "\ue0f0";       // ç¯æ³¡ ğŸ’¡
         
-        // ½¡¿µ×´Ì¬Í¼±ê
-        public const string Circle = "\uef4a";          // Ô²ĞÎ£¨±¸ÓÃ£©
-        public const string CheckCircle = "\ue86c";     // ³É¹¦ ? ??£¨ÆµÂÊÊÊÖĞ£©
-        public const string Warning = "\ue002";         // ¾¯¸æ ?? ??£¨ÆµÂÊÆ«¸ß£©
-        public const string Error = "\ue000";           // ´íÎó ? ??£¨ÆµÂÊ¹ı¸ß£©
-        public const string Info = "\ue88e";            // ĞÅÏ¢ ?? ??£¨ÆµÂÊÕı³££©
+        // å¥åº·çŠ¶æ€å›¾æ ‡
+        public const string Circle = "\uef4a";          // åœ†å½¢ï¼ˆå¤‡ç”¨ï¼‰
+        public const string CheckCircle = "\ue86c";     // æˆåŠŸ âœ“ âœ…ï¼ˆé¢‘ç‡è‰¯å¥½ï¼‰
+        public const string Warning = "\ue002";         // è­¦å‘Š âš  âš ï¸ï¼ˆé¢‘ç‡åé«˜ï¼‰
+        public const string Error = "\ue000";           // é”™è¯¯ âœ— âŒï¼ˆé¢‘ç‡è¿‡é«˜ï¼‰
+        public const string Info = "\ue88e";            // ä¿¡æ¯ â„¹ â„¹ï¸ï¼ˆé¢‘ç‡æ­£å¸¸ï¼‰
         
-        // Êı¾İ¹ÜÀíÍ¼±ê
-        public const string Save = "\ue161";            // ±£´æ ??
-        public const string Download = "\uf090";        // ÏÂÔØ ??
-        public const string DeleteForever = "\ue92b";   // ÓÀ¾ÃÉ¾³ı ???
-        public const string Lock = "\ue897";            // Ëø ??
-        public const string Book = "\ue865";            // Êé ??
-        public const string Notifications = "\ue7f4";   // Í¨Öª ??
-        public const string Info2 = "\ue88f";           // ĞÅÏ¢ ??
+        // æ•°æ®ç®¡ç†å›¾æ ‡
+        public const string Save = "\ue161";            // ä¿å­˜ ğŸ’¾
+        public const string Download = "\uf090";        // ä¸‹è½½ ğŸ“¥
+        public const string DeleteForever = "\ue92b";   // æ°¸ä¹…åˆ é™¤ ğŸ—‘ï¸
+        public const string Lock = "\ue897";            // é” ğŸ”’
+        public const string Book = "\ue865";            // ä¹¦ ğŸ“–
+        public const string Notifications = "\ue7f4";   // é€šçŸ¥ ğŸ””
+        public const string Info2 = "\ue88f";           // ä¿¡æ¯ â„¹ï¸
         
-        // Ö÷ÌâÍ¼±ê
-        public const string DarkMode = "\ue51c";        // °µÉ«Ä£Ê½ ??
-        public const string LightMode = "\ue518";       // ÁÁÉ«Ä£Ê½ ??
-        public const string Brightness = "\ue1ac";      // ÁÁ¶È×Ô¶¯ ?
+        // ä¸»é¢˜å›¾æ ‡
+        public const string DarkMode = "\ue51c";        // æ·±è‰²æ¨¡å¼ ğŸŒ™
+        public const string LightMode = "\ue518";       // æµ…è‰²æ¨¡å¼ â˜€ï¸
+        public const string Brightness = "\ue1ac";      // äº®åº¦è‡ªåŠ¨ ğŸ”…
     }
 }

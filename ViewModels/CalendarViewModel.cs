@@ -26,7 +26,7 @@ namespace zuoleme.ViewModels
             }
         }
 
-        public string MonthYearDisplay => CurrentMonth.ToString("yyyyÄê MMÔÂ");
+        public string MonthYearDisplay => CurrentMonth.ToString("yyyyå¹´ MMæœˆ");
 
         public int SelectedMonthRecordCount
         {
@@ -80,7 +80,7 @@ namespace zuoleme.ViewModels
             var firstDayOfMonth = new DateTime(CurrentMonth.Year, CurrentMonth.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
             
-            // »ñÈ¡¸ÃÔÂ·İµÄËùÓĞ¼ÇÂ¼
+            // è·å–è¯¥æœˆä»½çš„æ‰€æœ‰è®°å½•
             var allRecords = _recordService.GetAllRecords();
             var monthRecords = allRecords.Where(r => 
                 r.Timestamp.Year == CurrentMonth.Year && 
@@ -88,10 +88,10 @@ namespace zuoleme.ViewModels
             
             SelectedMonthRecordCount = monthRecords.Count;
 
-            // ¼ÆËãµÚÒ»ÌìÊÇĞÇÆÚ¼¸£¨0=Sunday, 1=Monday, etc.£©
+            // è®¡ç®—ç¬¬ä¸€å¤©æ˜¯æ˜ŸæœŸå‡ ï¼ˆ0=Sunday, 1=Monday, etc.ï¼‰
             int firstDayOfWeek = (int)firstDayOfMonth.DayOfWeek;
             
-            // Ìí¼ÓÉÏ¸öÔÂµÄ¿Õ°×ÌìÊı
+            // æ·»åŠ ä¸Šä¸ªæœˆçš„ç©ºç™½å¤©æ•°
             var previousMonth = firstDayOfMonth.AddMonths(-1);
             var daysInPreviousMonth = DateTime.DaysInMonth(previousMonth.Year, previousMonth.Month);
             for (int i = firstDayOfWeek - 1; i >= 0; i--)
@@ -105,7 +105,7 @@ namespace zuoleme.ViewModels
                 CalendarDays.Add(day);
             }
 
-            // Ìí¼Óµ±ÔÂµÄËùÓĞÌìÊı
+            // æ·»åŠ å½“æœˆçš„æ‰€æœ‰å¤©æ•°
             for (int day = 1; day <= lastDayOfMonth.Day; day++)
             {
                 var date = new DateTime(CurrentMonth.Year, CurrentMonth.Month, day);
@@ -123,8 +123,8 @@ namespace zuoleme.ViewModels
                 CalendarDays.Add(calendarDay);
             }
 
-            // Ìí¼ÓÏÂ¸öÔÂµÄ¿Õ°×ÌìÊı£¨Ìî³äµ½ÍêÕûµÄ6ÖÜ£©
-            int remainingDays = 42 - CalendarDays.Count; // 6ÖÜ * 7Ìì = 42Ìì
+            // æ·»åŠ ä¸‹ä¸ªæœˆçš„ç©ºç™½å¤©æ•°ï¼ˆå¡«å……åˆ°æ»¡è¶³6å‘¨ï¼‰
+            int remainingDays = 42 - CalendarDays.Count; // 6å‘¨ * 7å¤© = 42å¤©
             var nextMonth = firstDayOfMonth.AddMonths(1);
             for (int day = 1; day <= remainingDays; day++)
             {
@@ -204,7 +204,7 @@ namespace zuoleme.ViewModels
         public string RecordCountDisplay => RecordCount > 0 ? RecordCount.ToString() : "";
         public double TextOpacity => IsCurrentMonth ? 1.0 : 0.3;
         
-        // ¸ù¾İ¼ÇÂ¼ÊıÁ¿·µ»ØÇ¿¶ÈµÈ¼¶£¨ÓÃÓÚÑÕÉ«ÉîÇ³£©
+        // æ ¹æ®è®°å½•æ•°é‡è¿”å›å¼ºåº¦ç­‰çº§ï¼ˆç”¨äºé¢œè‰²æ·±æµ…ï¼‰
         public int IntensityLevel
         {
             get

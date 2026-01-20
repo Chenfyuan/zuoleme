@@ -8,11 +8,11 @@ namespace zuoleme.Converters
         {
             if (value is double progress)
             {
-                // ¼ÙÉèÈİÆ÷¿í¶ÈÎªÆÁÄ»¿í¶È¼õÈ¥ padding (48px)
+                // è®¡ç®—è¿›åº¦æ¡å®½åº¦ä¸ºå±å¹•å®½åº¦å‡å» padding (48px)
                 var screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
-                var containerWidth = screenWidth - 88; // ¼õÈ¥×óÓÒ padding ºÍ±ß¾à
+                var containerWidth = screenWidth - 88; // å‡å»ä¸¤ä¾§ padding å’Œè¾¹è·
                 
-                // ½ø¶ÈÌõ¿í¶È£¬×î´óÎªÈİÆ÷¿í¶È
+                // è®¡ç®—è¿›åº¦å®½åº¦ï¼Œæœ€å¤§ä¸ºå®¹å™¨å®½åº¦
                 return Math.Min(progress * containerWidth / 2, containerWidth);
             }
             return 0;

@@ -38,7 +38,7 @@ namespace zuoleme.Services
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"¼ÓÔØ½¡¿µÉèÖÃÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"åŠ è½½å¥åº·è®¾ç½®å¤±è´¥: {ex.Message}");
             }
 
             return new HealthSettings();
@@ -53,7 +53,7 @@ namespace zuoleme.Services
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"±£´æ½¡¿µÉèÖÃÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"ä¿å­˜å¥åº·è®¾ç½®å¤±è´¥: {ex.Message}");
             }
         }
 
@@ -69,7 +69,7 @@ namespace zuoleme.Services
             }
             catch
             {
-                return 3; // Ä¬ÈÏÖµ
+                return 3; // é»˜è®¤å€¼
             }
         }
 
@@ -79,7 +79,7 @@ namespace zuoleme.Services
             {
                 if (recommendedCount <= 0)
                 {
-                    recommendedCount = 3; // ·ÀÓùĞÔÄ¬ÈÏÖµ
+                    recommendedCount = 3; // åˆç†çš„é»˜è®¤å€¼
                 }
 
                 var ratio = (double)weekCount / recommendedCount;
@@ -89,10 +89,10 @@ namespace zuoleme.Services
                     return new HealthStatus
                     {
                         Level = HealthLevel.TooHigh,
-                        Title = "ÆµÂÊ¹ı¸ß",
-                        Message = "½¨ÒéÊÊµ±¼õÉÙÆµÂÊ£¬×¢ÒâĞİÏ¢",
+                        Title = "é¢‘ç‡è¿‡é«˜",
+                        Message = "å»ºè®®é€‚å½“é™ä½é¢‘ç‡ï¼Œæ³¨æ„ä¼‘æ¯",
                         Color = "#EF5350",
-                        Icon = "\ue000", // MaterialIcons.Error - ´íÎóÍ¼±ê
+                        Icon = "\ue000", // MaterialIcons.Error - é”™è¯¯å›¾æ ‡
                         ProgressColor = "#EF5350",
                         BackgroundStartColor = "#FFEBEE",
                         BackgroundEndColor = "#FFCDD2",
@@ -104,10 +104,10 @@ namespace zuoleme.Services
                     return new HealthStatus
                     {
                         Level = HealthLevel.High,
-                        Title = "ÆµÂÊÆ«¸ß",
-                        Message = "½¨Òé¿ØÖÆÆµÂÊ£¬±£³Ö½¡¿µ",
+                        Title = "é¢‘ç‡åé«˜",
+                        Message = "å¯é€‚å½“é™ä½é¢‘ç‡ï¼Œä¿æŒå¥åº·",
                         Color = "#FF9800",
-                        Icon = "\ue002", // MaterialIcons.Warning - ¾¯¸æÍ¼±ê
+                        Icon = "\ue002", // MaterialIcons.Warning - è­¦å‘Šå›¾æ ‡
                         ProgressColor = "#FF9800",
                         BackgroundStartColor = "#FFF3E0",
                         BackgroundEndColor = "#FFE0B2",
@@ -119,10 +119,10 @@ namespace zuoleme.Services
                     return new HealthStatus
                     {
                         Level = HealthLevel.Good,
-                        Title = "ÆµÂÊÊÊÖĞ",
-                        Message = "±£³ÖÏÖÔÚµÄ½Ú×à£¬·Ç³£½¡¿µ",
+                        Title = "é¢‘ç‡è‰¯å¥½",
+                        Message = "ä¿æŒå½“å‰çš„èŠ‚å¥ï¼Œéå¸¸å¥åº·",
                         Color = "#4CAF50",
-                        Icon = "\ue86c", // MaterialIcons.CheckCircle - ³É¹¦Í¼±ê
+                        Icon = "\ue86c", // MaterialIcons.CheckCircle - æˆåŠŸå›¾æ ‡
                         ProgressColor = "#4CAF50",
                         BackgroundStartColor = "#E8F5E9",
                         BackgroundEndColor = "#C8E6C9",
@@ -134,10 +134,10 @@ namespace zuoleme.Services
                     return new HealthStatus
                     {
                         Level = HealthLevel.Normal,
-                        Title = "ÆµÂÊÕı³£",
-                        Message = "Ò»ÇĞÕı³££¬¼ÌĞø±£³Ö",
+                        Title = "é¢‘ç‡æ­£å¸¸",
+                        Message = "ä¸€åˆ‡æ­£å¸¸ï¼Œç»§ç»­ä¿æŒï¼",
                         Color = "#2196F3",
-                        Icon = "\ue88e", // MaterialIcons.Info - ĞÅÏ¢Í¼±ê
+                        Icon = "\ue88e", // MaterialIcons.Info - ä¿¡æ¯å›¾æ ‡
                         ProgressColor = "#2196F3",
                         BackgroundStartColor = "#E3F2FD",
                         BackgroundEndColor = "#BBDEFB",
@@ -147,14 +147,14 @@ namespace zuoleme.Services
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"»ñÈ¡½¡¿µ×´Ì¬Ê§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"è·å–å¥åº·çŠ¶æ€å¤±è´¥: {ex.Message}");
                 return new HealthStatus
                 {
                     Level = HealthLevel.Normal,
-                    Title = "½¡¿µ×´Ì¬",
-                    Message = "ÔİÎŞÊı¾İ",
+                    Title = "å¥åº·çŠ¶æ€",
+                    Message = "çŠ¶æ€æ­£å¸¸",
                     Color = "#2196F3",
-                    Icon = "\ue88e", // MaterialIcons.Info - ĞÅÏ¢Í¼±ê
+                    Icon = "\ue88e", // MaterialIcons.Info - ä¿¡æ¯å›¾æ ‡
                     ProgressColor = "#2196F3",
                     BackgroundStartColor = "#E3F2FD",
                     BackgroundEndColor = "#BBDEFB",

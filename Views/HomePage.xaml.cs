@@ -16,12 +16,12 @@ namespace zuoleme.Views
             BindingContext = viewModel;
             _viewModel = viewModel;
             
-            // ÆôÓÃÒ³Ãæ»º´æ£¬±ÜÃâÃ¿´ÎÇĞ»»¶¼ÖØĞÂ´´½¨
+            // å¯ç”¨é¡µé¢ç¼“å­˜ï¼Œé¿å…æ¯æ¬¡åˆ‡æ¢éƒ½é‡æ–°åˆ›å»º
             Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific.Page.SetToolbarPlacement(
                 this, 
                 Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific.ToolbarPlacement.Bottom);
             
-            // ¼àÌı½¡¿µ×´Ì¬±ä»¯£¬¸üĞÂÑÕÉ«
+            // ç›‘å¬å¥åº·çŠ¶æ€å˜åŒ–ï¼Œæ›´æ–°é¢œè‰²
             _viewModel.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(_viewModel.HealthProgressColor) ||
@@ -38,21 +38,21 @@ namespace zuoleme.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            // Ò³ÃæÏÔÊ¾Ê±²»ĞèÒªÖØĞÂ¼ÓÔØÊı¾İ£¬ÒòÎªÓĞÏûÏ¢»úÖÆ×Ô¶¯Í¬²½
+            // é¡µé¢æ˜¾ç¤ºæ—¶ä¸éœ€è¦é‡æ–°åŠ è½½æ•°æ®ï¼Œå› ä¸ºæ¶ˆæ¯æœºåˆ¶ä¼šè‡ªåŠ¨åŒæ­¥
         }
 
         private void UpdateColors()
         {
             try
             {
-                // ¸üĞÂ ProgressBar ÑÕÉ«
+                // æ›´æ–° ProgressBar é¢œè‰²
                 var progressColorString = _viewModel.HealthProgressColor;
                 if (!string.IsNullOrEmpty(progressColorString))
                 {
                     HealthProgressBar.ProgressColor = Color.FromArgb(progressColorString);
                 }
 
-                // ¸üĞÂ½¡¿µ¿¨Æ¬±³¾°½¥±ä
+                // æ›´æ–°å¥åº·å¡ç‰‡çš„èƒŒæ™¯
                 var startColorString = _viewModel.HealthBackgroundStartColor;
                 var endColorString = _viewModel.HealthBackgroundEndColor;
                 
@@ -79,13 +79,13 @@ namespace zuoleme.Views
                     HealthCard.Background = gradient;
                 }
 
-                // ¸üĞÂ°´Å¥±³¾°½¥±äºÍ¼ÓºÅÍ¼±êÑÕÉ«
+                // æ›´æ–°æŒ‰é’®çš„èƒŒæ™¯ï¼ˆæ¸å˜ï¼‰å’ŒåŠ å·å›¾æ ‡é¢œè‰²
                 var buttonColorString = _viewModel.ButtonBackgroundColor;
                 if (!string.IsNullOrEmpty(buttonColorString))
                 {
                     var buttonColor = Color.FromArgb(buttonColorString);
                     
-                    // ´´½¨¸üÉîµÄ½¥±äÉ«
+                    // åˆ›å»ºç•¥æ·±çš„æ¸å˜è‰²
                     var darkerColor = Color.FromRgba(
                         (int)(buttonColor.Red * 0.8 * 255),
                         (int)(buttonColor.Green * 0.8 * 255),
@@ -113,7 +113,7 @@ namespace zuoleme.Views
                     
                     MainButton.Background = buttonGradient;
                     
-                    // ¸üĞÂÒõÓ°ÑÕÉ«
+                    // è®¾ç½®é˜´å½±é¢œè‰²
                     MainButton.Shadow = new Shadow
                     {
                         Brush = new SolidColorBrush(buttonColor),
@@ -125,7 +125,7 @@ namespace zuoleme.Views
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"¸üĞÂÑÕÉ«Ê§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"æ›´æ–°é¢œè‰²å¤±è´¥: {ex.Message}");
             }
         }
 
@@ -136,35 +136,35 @@ namespace zuoleme.Views
 
             try
             {
-                // ´¥¾õ·´À¡£¨Èç¹ûÉè±¸Ö§³Ö£©
+                // è§¦å‘æŒ¯åŠ¨ï¼ˆå¦‚æœè®¾å¤‡æ”¯æŒï¼‰
                 try
                 {
                     HapticFeedback.Default.Perform(HapticFeedbackType.Click);
                 }
                 catch { }
 
-                // 1. °´ÏÂ¶¯»­£ºËõĞ¡ + ÇáÎ¢Ğı×ª
+                // 1. æŒ‰ä¸‹åŠ¨ç”»ï¼šç¼©å° + å¾®å¾®æ—‹è½¬
                 await Task.WhenAll(
                     MainButton.ScaleToAsync(0.85, 100, Easing.CubicOut),
                     MainButton.RotateToAsync(5, 100, Easing.CubicOut)
                 );
 
-                // Ö´ĞĞÌí¼Ó¼ÇÂ¼ÃüÁî
+                // æ‰§è¡Œæ·»åŠ è®°å½•æ“ä½œ
                 if (_viewModel.AddRecordCommand.CanExecute(null))
                 {
                     _viewModel.AddRecordCommand.Execute(null);
                 }
 
-                // 2. µ¯Æğ¶¯»­£º·Å´ó·´µ¯ + Ğı×ª»ØÕı + Âö³åĞ§¹û
+                // 2. å¼¹èµ·åŠ¨ç”»ï¼šæ”¾å¤§åå¼¹ + æ—‹è½¬æ¢å¤ + å¼¹æ€§æ•ˆæœ
                 var bounceAnimation = MainButton.ScaleToAsync(1.15, 150, Easing.CubicOut);
                 var rotateBackAnimation = MainButton.RotateToAsync(0, 150, Easing.CubicOut);
                 
                 await Task.WhenAll(bounceAnimation, rotateBackAnimation);
 
-                // 3. »Øµ¯µ½Õı³£´óĞ¡
+                // 3. å›åˆ°æ­£å¸¸å¤§å°
                 await MainButton.ScaleToAsync(1.0, 100, Easing.CubicIn);
 
-                // 4. ³É¹¦Âö³å¶¯»­£¨3´Î¿ìËÙÉÁË¸£©
+                // 4. æˆåŠŸè„‰å†²åŠ¨ç”»ï¼ˆ3æ¬¡å¿«é€Ÿé—ªçƒï¼‰
                 _ = Task.Run(async () =>
                 {
                     await MainThread.InvokeOnMainThreadAsync(async () =>
@@ -177,7 +177,7 @@ namespace zuoleme.Views
                     });
                 });
 
-                // 5. Plus Í¼±êĞı×ª¶¯»­
+                // 5. Plus å›¾æ ‡æ—‹è½¬åŠ¨ç”»
                 _ = Task.Run(async () =>
                 {
                     await MainThread.InvokeOnMainThreadAsync(async () =>
@@ -187,10 +187,10 @@ namespace zuoleme.Views
                     });
                 });
 
-                // 6. °®ĞÄÁ£×Ó·ÉÉ¢Ğ§¹û£¨Ê¹ÓÃ½¡¿µ×´Ì¬ÑÕÉ«£©
+                // 6. åˆ›å»ºçˆ±å¿ƒç²’å­å‘æ•£æ•ˆæœï¼ˆä½¿ç”¨å¥åº·çŠ¶æ€é¢œè‰²ï¼‰
                 await CreateParticleExplosion();
 
-                // ³¤Õğ¶¯·´À¡±íÊ¾³É¹¦
+                // é•¿éœ‡åŠ¨åé¦ˆè¡¨ç¤ºæˆåŠŸ
                 try
                 {
                     HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
@@ -199,7 +199,7 @@ namespace zuoleme.Views
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"¶¯»­Ö´ĞĞÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"åŠ¨ç”»æ‰§è¡Œå¤±è´¥: {ex.Message}");
             }
             finally
             {
@@ -216,35 +216,35 @@ namespace zuoleme.Views
                     ParticleContainer.IsVisible = true;
                     ParticleContainer.Children.Clear();
 
-                    // »ñÈ¡°´Å¥µÄÆÁÄ»Î»ÖÃ
+                    // è·å–æŒ‰é’®åœ¨å±å¹•ä½ç½®
                     var buttonBounds = MainButton.Bounds;
                     var buttonCenterX = buttonBounds.X + buttonBounds.Width / 2;
-                    var buttonCenterY = buttonBounds.Y + buttonBounds.Height / 2 + 100; // µ÷ÕûÆ«ÒÆ
+                    var buttonCenterY = buttonBounds.Y + buttonBounds.Height / 2 + 100; // é¢å¤–åç§»
 
-                    // »ñÈ¡µ±Ç°½¡¿µ×´Ì¬µÄÖ÷É«µ÷×÷ÎªÁ£×ÓÑÕÉ«
+                    // è·å–å½“å‰å¥åº·çŠ¶æ€çš„é¢œè‰²ä½œä¸ºç²’å­é¢œè‰²
                     var particleColorString = _viewModel.ButtonBackgroundColor;
                     var particleColor = !string.IsNullOrEmpty(particleColorString) 
                         ? Color.FromArgb(particleColorString) 
-                        : Color.FromArgb("#E91E63"); // Ä¬ÈÏ·ÛÉ«
+                        : Color.FromArgb("#E91E63"); // é»˜è®¤ç²‰è‰²
 
                     var random = new Random();
-                    var particleCount = 12; // Á£×ÓÊıÁ¿
+                    var particleCount = 12; // ç²’å­æ•°é‡
 
                     var animationTasks = new List<Task>();
 
                     for (int i = 0; i < particleCount; i++)
                     {
-                        // ´´½¨°®ĞÄÁ£×Ó£¨Ê¹ÓÃ×ÖÌåÍ¼±ê£©
+                        // åˆ›å»ºçˆ±å¿ƒç²’å­ï¼ˆä½¿ç”¨å¿ƒå½¢å›¾æ ‡ï¼‰
                         var particle = new Label
                         {
                             Text = "\ue87d", // MaterialIcons.Favorite
                             FontFamily = "MaterialIcons",
                             FontSize = random.Next(24, 40),
-                            TextColor = particleColor, // Ê¹ÓÃ½¡¿µ×´Ì¬ÑÕÉ«
+                            TextColor = particleColor, // ä½¿ç”¨å¥åº·çŠ¶æ€é¢œè‰²
                             Opacity = 1.0
                         };
 
-                        // ¼ÆËã·ÉÉ¢·½Ïò£¨360¶È¾ùÔÈ·Ö²¼£©
+                        // è®¡ç®—å‘æ•£æ–¹å‘ï¼ˆ360åº¦å‡åŒ€åˆ†å¸ƒï¼‰
                         var angle = (360.0 / particleCount) * i;
                         var radians = angle * Math.PI / 180.0;
                         var distance = random.Next(100, 200);
@@ -252,18 +252,18 @@ namespace zuoleme.Views
                         var targetX = buttonCenterX + Math.Cos(radians) * distance;
                         var targetY = buttonCenterY + Math.Sin(radians) * distance;
 
-                        // ÉèÖÃ³õÊ¼Î»ÖÃ£¨°´Å¥ÖĞĞÄ£©
+                        // è®¾ç½®åˆå§‹ä½ç½®ï¼ˆæŒ‰é’®ä¸­å¿ƒï¼‰
                         AbsoluteLayout.SetLayoutBounds(particle, new Rect(buttonCenterX, buttonCenterY, 40, 40));
                         AbsoluteLayout.SetLayoutFlags(particle, Microsoft.Maui.Layouts.AbsoluteLayoutFlags.None);
 
                         ParticleContainer.Children.Add(particle);
 
-                        // ´´½¨·ÉÉ¢¶¯»­
+                        // åˆ›å»ºå‘æ•£åŠ¨ç”»
                         var flyAnimation = Task.Run(async () =>
                         {
                             await MainThread.InvokeOnMainThreadAsync(async () =>
                             {
-                                // ·É³ö + µ­³ö + Ğı×ª
+                                // é£å‡º + æ·¡å‡º + æ—‹è½¬
                                 var translateTask = particle.TranslateToAsync(
                                     targetX - buttonCenterX, 
                                     targetY - buttonCenterY, 
@@ -281,17 +281,17 @@ namespace zuoleme.Views
                         animationTasks.Add(flyAnimation);
                     }
 
-                    // µÈ´ıËùÓĞÁ£×Ó¶¯»­Íê³É
+                    // ç­‰å¾…æ‰€æœ‰ç²’å­åŠ¨ç”»å®Œæˆ
                     await Task.WhenAll(animationTasks);
 
-                    // ÇåÀíÁ£×Ó
+                    // æ¸…ç†ç²’å­
                     ParticleContainer.Children.Clear();
                     ParticleContainer.IsVisible = false;
                 });
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Á£×Ó¶¯»­Ê§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"ç²’å­åŠ¨ç”»å¤±è´¥: {ex.Message}");
             }
         }
     }

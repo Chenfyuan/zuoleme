@@ -22,7 +22,7 @@ namespace zuoleme.Services
         public void AddRecord(Record record)
         {
             _records.Add(record);
-            SaveRecordsAsync(); // Òì²½±£´æ£¬²»×èÈû UI
+            SaveRecordsAsync(); // å¼‚æ­¥ä¿å­˜ï¼Œä¸é˜»å¡ UI
             SendDataChangedMessage(DataChangeType.RecordAdded);
         }
 
@@ -32,7 +32,7 @@ namespace zuoleme.Services
             if (record != null)
             {
                 _records.Remove(record);
-                SaveRecordsAsync(); // Òì²½±£´æ
+                SaveRecordsAsync(); // å¼‚æ­¥ä¿å­˜
                 SendDataChangedMessage(DataChangeType.RecordDeleted);
             }
         }
@@ -42,13 +42,13 @@ namespace zuoleme.Services
             try
             {
                 _records.Clear();
-                SaveRecordsAsync(); // Òì²½±£´æ
+                SaveRecordsAsync(); // å¼‚æ­¥ä¿å­˜
                 SendDataChangedMessage(DataChangeType.AllDataCleared);
-                System.Diagnostics.Debug.WriteLine("ËùÓĞ¼ÇÂ¼ÒÑÇå¿Õ");
+                System.Diagnostics.Debug.WriteLine("æ‰€æœ‰è®°å½•å·²æ¸…ç©º");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Çå¿Õ¼ÇÂ¼Ê§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"æ¸…ç©ºè®°å½•å¤±è´¥: {ex.Message}");
                 throw;
             }
         }
@@ -60,7 +60,7 @@ namespace zuoleme.Services
 
         public List<Record> GetAllRecords()
         {
-            // ·µ»Ø¸±±¾£¬±ÜÃâÍâ²¿ĞŞ¸ÄÓ°ÏìÄÚ²¿Êı¾İ
+            // è¿”å›å‰¯æœ¬ï¼Œé¿å…å¤–éƒ¨ä¿®æ”¹å½±å“å†…éƒ¨æ•°æ®
             return _records.OrderByDescending(r => r.Timestamp).ToList();
         }
 
@@ -95,7 +95,7 @@ namespace zuoleme.Services
                 {
                     var json = File.ReadAllText(_dataFilePath);
                     _records = JsonSerializer.Deserialize<List<Record>>(json) ?? new List<Record>();
-                    System.Diagnostics.Debug.WriteLine($"¼ÓÔØÁË {_records.Count} Ìõ¼ÇÂ¼");
+                    System.Diagnostics.Debug.WriteLine($"åŠ è½½äº† {_records.Count} æ¡è®°å½•");
                 }
             }
             catch (Exception ex)
@@ -107,10 +107,10 @@ namespace zuoleme.Services
 
         private void SaveRecordsAsync()
         {
-            // ·À¶¶£ºÈç¹ûÒÑÓĞ´ı±£´æÈÎÎñ£¬È¡Ïû²¢ÖØĞÂ¿ªÊ¼
+            // å¦‚æœæœ‰å¾…å¤„ç†çš„å†™å…¥ï¼Œå–æ¶ˆå®ƒï¼Œé‡æ–°å¼€å§‹
             _pendingSaveTask = Task.Run(async () =>
             {
-                // µÈ´ı100ms£¬ºÏ²¢¶à´Î¿ìËÙ±£´æ
+                // ç­‰å¾…100msï¼Œåˆå¹¶å¤šæ¬¡å¿«é€Ÿä¿å­˜
                 await Task.Delay(100);
                 
                 await _saveLock.WaitAsync();
@@ -118,11 +118,11 @@ namespace zuoleme.Services
                 {
                     var json = JsonSerializer.Serialize(_records, new JsonSerializerOptions 
                     { 
-                        WriteIndented = false // ²»Ëõ½ø£¬¼õÉÙÎÄ¼ş´óĞ¡
+                        WriteIndented = false // ä¸æ ¼å¼åŒ–ï¼Œå‡å°‘æ–‡ä»¶å¤§å°
                     });
                     
                     await File.WriteAllTextAsync(_dataFilePath, json);
-                    System.Diagnostics.Debug.WriteLine($"±£´æÁË {_records.Count} Ìõ¼ÇÂ¼");
+                    System.Diagnostics.Debug.WriteLine($"ä¿å­˜äº† {_records.Count} æ¡è®°å½•");
                 }
                 catch (Exception ex)
                 {
@@ -143,7 +143,7 @@ namespace zuoleme.Services
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"·¢ËÍÊı¾İ±ä¸üÏûÏ¢Ê§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"å‘é€æ•°æ®å˜æ›´æ¶ˆæ¯å¤±è´¥: {ex.Message}");
             }
         }
     }

@@ -15,7 +15,7 @@ namespace zuoleme.ViewModels
         private readonly HealthService _healthService;
         private bool _isLoading = false;
         private DateTime _lastRefreshTime = DateTime.MinValue;
-        private const int REFRESH_THROTTLE_MS = 500; // ½ÚÁ÷£º500msÄÚÖ»Ë¢ĞÂÒ»´Î
+        private const int REFRESH_THROTTLE_MS = 500; // é˜²æŠ–ï¼š500mså†…åªåˆ·æ–°ä¸€æ¬¡
         
         private int _totalCount;
         private int _todayCount;
@@ -93,7 +93,7 @@ namespace zuoleme.ViewModels
             }
         }
 
-        public string RecommendedText => $"½¨Òé£ºÃ¿ÖÜ {RecommendedWeeklyCount} ´Î";
+        public string RecommendedText => $"å»ºè®®ï¼šæ¯å‘¨ {RecommendedWeeklyCount} æ¬¡";
 
         public HealthStatus? HealthStatus
         {
@@ -113,8 +113,8 @@ namespace zuoleme.ViewModels
             }
         }
 
-        public string HealthStatusTitle => HealthStatus?.Title ?? "½¡¿µ×´Ì¬";
-        public string HealthStatusMessage => HealthStatus?.Message ?? "ÔİÎŞÊı¾İ";
+        public string HealthStatusTitle => HealthStatus?.Title ?? "å¥åº·çŠ¶æ€";
+        public string HealthStatusMessage => HealthStatus?.Message ?? "çŠ¶æ€æ­£å¸¸";
         public string HealthStatusColor => HealthStatus?.Color ?? "#2196F3";
         public string HealthStatusIcon => HealthStatus?.Icon ?? "\ue88e";
         public string HealthProgressColor => HealthStatus?.ProgressColor ?? "#2196F3";
@@ -164,7 +164,7 @@ namespace zuoleme.ViewModels
 
             LoadData();
             
-            // ¶©ÔÄÊı¾İ±ä¸üÏûÏ¢
+            // è®¢é˜…æ•°æ®å˜æ›´æ¶ˆæ¯
             SubscribeToDataChanges();
         }
 
@@ -172,13 +172,13 @@ namespace zuoleme.ViewModels
         {
             WeakReferenceMessenger.Default.Register<DataChangedMessage>(this, (recipient, message) =>
             {
-                System.Diagnostics.Debug.WriteLine($"ÊÕµ½Êı¾İ±ä¸üÏûÏ¢: {message.ChangeType}");
+                System.Diagnostics.Debug.WriteLine($"æ”¶åˆ°æ•°æ®å˜æ›´æ¶ˆæ¯: {message.ChangeType}");
                 
-                // ½ÚÁ÷Ë¢ĞÂ£º±ÜÃâ¶ÌÊ±¼äÄÚ¶à´ÎË¢ĞÂ
+                // é˜²æŠ–åˆ·æ–°ï¼ŒçŸ­æ—¶é—´å†…å¤šæ¬¡åˆ·æ–°
                 var timeSinceLastRefresh = (DateTime.Now - _lastRefreshTime).TotalMilliseconds;
                 if (timeSinceLastRefresh < REFRESH_THROTTLE_MS && message.ChangeType != DataChangeType.AllDataCleared)
                 {
-                    System.Diagnostics.Debug.WriteLine($"½ÚÁ÷£º¾àÉÏ´ÎË¢ĞÂ½ö {timeSinceLastRefresh}ms£¬Ìø¹ı");
+                    System.Diagnostics.Debug.WriteLine($"é˜²æŠ–ï¼šè·ç¦»ä¸Šæ¬¡åˆ·æ–°ä»… {timeSinceLastRefresh}msï¼Œè·³è¿‡");
                     return;
                 }
                 
@@ -224,7 +224,7 @@ namespace zuoleme.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Ìí¼Ó¼ÇÂ¼Ê§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"æ·»åŠ è®°å½•å¤±è´¥: {ex.Message}");
             }
         }
 
@@ -237,13 +237,13 @@ namespace zuoleme.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"É¾³ı¼ÇÂ¼Ê§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"åˆ é™¤è®°å½•å¤±è´¥: {ex.Message}");
             }
         }
 
         private void LoadData()
         {
-            // ·ÀÖ¹²¢·¢¼ÓÔØ
+            // é˜²æ­¢é‡å¤åŠ è½½
             if (_isLoading) return;
             _isLoading = true;
             
@@ -256,16 +256,16 @@ namespace zuoleme.ViewModels
                 WeekCount = _recordService.GetWeekCount();
                 MonthCount = _recordService.GetMonthCount();
 
-                // ÓÅ»¯£ºÖ»ÔÚÊı¾İÕæÕı±ä»¯Ê±¸üĞÂ ObservableCollection
+                // ä¼˜åŒ–ï¼šåªåœ¨æ•°æ®çœŸæ­£å˜åŒ–æ—¶æ›´æ–° ObservableCollection
                 var allRecords = _recordService.GetAllRecords();
                 
-                // ÅúÁ¿¸üĞÂÒÔ¼õÉÙ UI Ë¢ĞÂ´ÎÊı
+                // æ‰¹é‡æ›´æ–°ä»¥å‡å°‘ UI åˆ·æ–°æ¬¡æ•°
                 UpdateRecordsCollection(Records, allRecords);
                 UpdateRecordsCollection(RecentRecords, allRecords.Take(5).ToList());
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"¼ÓÔØÊı¾İÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"åŠ è½½æ•°æ®å¤±è´¥: {ex.Message}");
             }
             finally
             {
@@ -277,7 +277,7 @@ namespace zuoleme.ViewModels
         {
             var newList = newRecords.ToList();
             
-            // Èç¹ûÊıÁ¿ºÍÄÚÈİ¶¼ÏàÍ¬£¬Ìø¹ı¸üĞÂ
+            // å¦‚æœæ–°æ—§æ•°æ®éƒ½ç›¸åŒï¼Œä¸è§¦å‘æ›´æ–°
             if (collection.Count == newList.Count && 
                 collection.SequenceEqual(newList, new RecordComparer()))
             {
@@ -298,7 +298,7 @@ namespace zuoleme.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         
-        // ¼ÇÂ¼±È½ÏÆ÷
+        // è®°å½•æ¯”è¾ƒå™¨
         private class RecordComparer : IEqualityComparer<Record>
         {
             public bool Equals(Record? x, Record? y)

@@ -27,7 +27,7 @@ namespace zuoleme.Services
         }
 
         /// <summary>
-        /// ¼ÓÔØÖ÷ÌâÉèÖÃ
+        /// åŠ è½½ä¸»é¢˜è®¾ç½®
         /// </summary>
         public ThemeSettings LoadSettings()
         {
@@ -42,14 +42,14 @@ namespace zuoleme.Services
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"¼ÓÔØÖ÷ÌâÉèÖÃÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"åŠ è½½ä¸»é¢˜è®¾ç½®å¤±è´¥: {ex.Message}");
             }
 
             return new ThemeSettings();
         }
 
         /// <summary>
-        /// ±£´æÖ÷ÌâÉèÖÃ
+        /// ä¿å­˜ä¸»é¢˜è®¾ç½®
         /// </summary>
         public void SaveSettings(ThemeSettings settings)
         {
@@ -57,25 +57,25 @@ namespace zuoleme.Services
             {
                 var json = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(_settingsPath, json);
-                System.Diagnostics.Debug.WriteLine($"Ö÷ÌâÉèÖÃÒÑ±£´æ: °µÉ«Ä£Ê½={settings.IsDarkMode}, ¸úËæÏµÍ³={settings.UseSystemTheme}");
+                System.Diagnostics.Debug.WriteLine($"ä¸»é¢˜è®¾ç½®å·²ä¿å­˜: æ·±è‰²æ¨¡å¼={settings.IsDarkMode}, è·Ÿéšç³»ç»Ÿ={settings.UseSystemTheme}");
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"±£´æÖ÷ÌâÉèÖÃÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"ä¿å­˜ä¸»é¢˜è®¾ç½®å¤±è´¥: {ex.Message}");
             }
         }
 
         /// <summary>
-        /// Ó¦ÓÃÖ÷Ìâ
+        /// åº”ç”¨ä¸»é¢˜
         /// </summary>
         public void ApplyTheme(bool isDarkMode)
         {
             try
             {
-                // ±ÜÃâÖØ¸´Ó¦ÓÃÏàÍ¬Ö÷Ìâ
+                // é¿å…é‡å¤åº”ç”¨ç›¸åŒä¸»é¢˜
                 if (_currentIsDarkMode == isDarkMode)
                 {
-                    System.Diagnostics.Debug.WriteLine($"?? Ö÷ÌâÎ´¸Ä±ä£¬Ìø¹ı: {(isDarkMode ? "°µÉ«" : "ÁÁÉ«")}");
+                    System.Diagnostics.Debug.WriteLine($"â„¹ï¸ ä¸»é¢˜æœªæ”¹å˜ï¼Œè·³è¿‡: {(isDarkMode ? "æ·±è‰²" : "æµ…è‰²")}");
                     return;
                 }
 
@@ -86,14 +86,14 @@ namespace zuoleme.Services
 
                     try
                     {
-                        // ¼ÓÔØ¶ÔÓ¦µÄÑÕÉ«×ÊÔ´×Öµä
+                        // åŠ è½½å¯¹åº”çš„é¢œè‰²èµ„æºå­—å…¸
                         var themeFile = isDarkMode ? "ColorsDark.xaml" : "Colors.xaml";
                         var themeDictionary = new ResourceDictionary();
                         themeDictionary.Source = new Uri($"Resources/Styles/{themeFile}", UriKind.Relative);
 
-                        System.Diagnostics.Debug.WriteLine($"?? ¼ÓÔØÖ÷ÌâÎÄ¼ş: {themeFile}");
+                        System.Diagnostics.Debug.WriteLine($"ğŸ¨ åŠ è½½ä¸»é¢˜æ–‡ä»¶: {themeFile}");
 
-                        // ¸üĞÂÓ¦ÓÃ×ÊÔ´ÖĞµÄÑÕÉ«
+                        // æ›´æ–°åº”ç”¨èµ„æºä¸­çš„é¢œè‰²
                         int updatedCount = 0;
                         foreach (var key in themeDictionary.Keys)
                         {
@@ -102,7 +102,7 @@ namespace zuoleme.Services
                                 var oldValue = app.Resources[key];
                                 var newValue = themeDictionary[key];
                                 
-                                // Ö»ÓĞÖµÕæÕı±ä»¯Ê±²Å¸üĞÂ
+                                // åªæœ‰å€¼å‘ç”Ÿå˜åŒ–æ—¶æ‰æ›´æ–°
                                 if (!Equals(oldValue, newValue))
                                 {
                                     app.Resources[key] = newValue;
@@ -117,26 +117,26 @@ namespace zuoleme.Services
                         }
 
                         _currentIsDarkMode = isDarkMode;
-                        System.Diagnostics.Debug.WriteLine($"? Ö÷ÌâÒÑÇĞ»»: {(isDarkMode ? "°µÉ«" : "ÁÁÉ«")} Ä£Ê½ (¸üĞÂÁË {updatedCount} ¸öÑÕÉ«)");
+                        System.Diagnostics.Debug.WriteLine($"âœ… ä¸»é¢˜å·²åˆ‡æ¢: {(isDarkMode ? "æ·±è‰²" : "æµ…è‰²")} æ¨¡å¼ (æ›´æ–°äº† {updatedCount} ä¸ªé¢œè‰²)");
                         
-                        // ´¥·¢Ö÷Ìâ±ä¸üÊÂ¼ş
+                        // å‘å¸ƒä¸»é¢˜å˜æ›´äº‹ä»¶
                         ThemeChanged?.Invoke(this, isDarkMode);
                     }
                     catch (Exception ex)
                     {
-                        System.Diagnostics.Debug.WriteLine($"? Ó¦ÓÃÖ÷ÌâÊ±³ö´í: {ex.Message}");
+                        System.Diagnostics.Debug.WriteLine($"âŒ åº”ç”¨ä¸»é¢˜æ—¶å‡ºé”™: {ex.Message}");
                         System.Diagnostics.Debug.WriteLine($"   Stack: {ex.StackTrace}");
                     }
                 });
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"? Ó¦ÓÃÖ÷ÌâÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"âŒ åº”ç”¨ä¸»é¢˜å¤±è´¥: {ex.Message}");
             }
         }
 
         /// <summary>
-        /// ¸ù¾İÏµÍ³Ö÷ÌâÉèÖÃ
+        /// åº”ç”¨ç³»ç»Ÿä¸»é¢˜è®¾ç½®
         /// </summary>
         public void ApplySystemTheme()
         {
@@ -144,23 +144,23 @@ namespace zuoleme.Services
             {
                 var systemTheme = Application.Current?.RequestedTheme ?? AppTheme.Light;
                 var isDarkMode = systemTheme == AppTheme.Dark;
-                System.Diagnostics.Debug.WriteLine($"??? ÏµÍ³Ö÷Ìâ: {systemTheme} ¡ú {(isDarkMode ? "°µÉ«" : "ÁÁÉ«")}");
+                System.Diagnostics.Debug.WriteLine($"ğŸ“± ç³»ç»Ÿä¸»é¢˜: {systemTheme} â†’ {(isDarkMode ? "æ·±è‰²" : "æµ…è‰²")}");
                 ApplyTheme(isDarkMode);
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Ó¦ÓÃÏµÍ³Ö÷ÌâÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"åº”ç”¨ç³»ç»Ÿä¸»é¢˜å¤±è´¥: {ex.Message}");
             }
         }
 
         /// <summary>
-        /// ³õÊ¼»¯Ö÷Ìâ£¨Ó¦ÓÃÆô¶¯Ê±µ÷ÓÃ£©
+        /// åˆå§‹åŒ–ä¸»é¢˜ï¼ˆåº”ç”¨å¯åŠ¨æ—¶è°ƒç”¨ï¼‰
         /// </summary>
         public void InitializeTheme()
         {
             var settings = LoadSettings();
             
-            System.Diagnostics.Debug.WriteLine($"?? ³õÊ¼»¯Ö÷Ìâ - ¸úËæÏµÍ³: {settings.UseSystemTheme}, °µÉ«Ä£Ê½: {settings.IsDarkMode}");
+            System.Diagnostics.Debug.WriteLine($"ğŸ”§ åˆå§‹åŒ–ä¸»é¢˜ - è·Ÿéšç³»ç»Ÿ: {settings.UseSystemTheme}, æ·±è‰²æ¨¡å¼: {settings.IsDarkMode}");
             
             if (settings.UseSystemTheme)
             {
@@ -173,16 +173,16 @@ namespace zuoleme.Services
         }
 
         /// <summary>
-        /// Ç¿ÖÆË¢ĞÂÖ÷Ìâ£¨ÓÃÓÚµ÷ÊÔ£©
+        /// å¼ºåˆ¶åˆ·æ–°ä¸»é¢˜ï¼ˆç”¨äºè°ƒè¯•ï¼‰
         /// </summary>
         public void ForceRefresh()
         {
-            _currentIsDarkMode = !_currentIsDarkMode; // Ç¿ÖÆ¸Ä±ä×´Ì¬
+            _currentIsDarkMode = !_currentIsDarkMode; // å¼ºåˆ¶æ”¹å˜çŠ¶æ€
             ApplyTheme(!_currentIsDarkMode);
         }
 
         /// <summary>
-        /// Ö÷Ìâ±ä¸üÊÂ¼ş
+        /// ä¸»é¢˜å˜æ›´äº‹ä»¶
         /// </summary>
         public event EventHandler<bool>? ThemeChanged;
     }

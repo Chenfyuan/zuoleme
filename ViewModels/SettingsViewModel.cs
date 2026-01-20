@@ -52,7 +52,7 @@ namespace zuoleme.ViewModels
                     _isDarkMode = value;
                     OnPropertyChanged();
                     
-                    // Èç¹û²»¸úËæÏµÍ³£¬ÔòÓ¦ÓÃÖ÷Ìâ
+                    // ä¸è·Ÿéšç³»ç»Ÿä¸»é¢˜æ—¶ï¼Œåº”ç”¨ä¸»é¢˜
                     if (!UseSystemTheme)
                     {
                         SaveThemeSettings();
@@ -75,29 +75,29 @@ namespace zuoleme.ViewModels
                     
                     if (value)
                     {
-                        // ¸úËæÏµÍ³Ö÷Ìâ
+                        // è·Ÿéšç³»ç»Ÿä¸»é¢˜
                         _themeService.ApplySystemTheme();
                     }
                     else
                     {
-                        // Ê¹ÓÃÊÖ¶¯ÉèÖÃµÄÖ÷Ìâ
+                        // ä½¿ç”¨æ‰‹åŠ¨è®¾ç½®çš„ä¸»é¢˜
                         _themeService.ApplyTheme(IsDarkMode);
                     }
                 }
             }
         }
 
-        public string RecommendedText => $"Ã¿ÖÜ½¨Òé {RecommendedWeeklyCount} ´Î";
+        public string RecommendedText => $"æ¯å‘¨å»ºè®® {RecommendedWeeklyCount} æ¬¡";
 
         public string AgeRangeText
         {
             get
             {
-                if (Age < 20) return "20ËêÒÔÏÂ";
-                if (Age < 30) return "20-30Ëê";
-                if (Age < 40) return "30-40Ëê";
-                if (Age < 50) return "40-50Ëê";
-                return "50ËêÒÔÉÏ";
+                if (Age < 20) return "20å²ä»¥ä¸‹";
+                if (Age < 30) return "20-30å²";
+                if (Age < 40) return "30-40å²";
+                if (Age < 50) return "40-50å²";
+                return "50å²ä»¥ä¸Š";
             }
         }
 
@@ -122,7 +122,7 @@ namespace zuoleme.ViewModels
             }
             catch
             {
-                // Ê¹ÓÃÄ¬ÈÏÖµ
+                // ä½¿ç”¨é»˜è®¤å€¼
                 Age = 25;
                 UpdateRecommendedCount();
             }
@@ -137,38 +137,38 @@ namespace zuoleme.ViewModels
                 if (recordCount == 0)
                 {
                     await Application.Current!.MainPage!.DisplayAlert(
-                        "ÌáÊ¾", 
-                        "ÔİÎŞÊı¾İĞèÒªÇå¿Õ", 
-                        "È·¶¨");
+                        "æç¤º", 
+                        "å½“å‰æ²¡æœ‰æ•°æ®éœ€è¦æ¸…ç©º", 
+                        "ç¡®å®š");
                     return;
                 }
 
                 bool confirm = await Application.Current!.MainPage!.DisplayAlert(
-                    "È·ÈÏÇå¿ÕÊı¾İ",
-                    $"È·¶¨ÒªÇå¿ÕËùÓĞ¼ÇÂ¼Âğ£¿\n\nµ±Ç°¹²ÓĞ {recordCount} Ìõ¼ÇÂ¼\n´Ë²Ù×÷²»¿É³·Ïú£¡",
-                    "Çå¿Õ",
-                    "È¡Ïû");
+                    "ç¡®è®¤æ¸…ç©ºæ•°æ®",
+                    $"ç¡®å®šè¦æ¸…ç©ºæ‰€æœ‰è®°å½•å—ï¼Ÿ\n\nå½“å‰å…±æœ‰ {recordCount} æ¡è®°å½•\næ­¤æ“ä½œä¸å¯æ’¤é”€ï¼",
+                    "æ¸…ç©º",
+                    "å–æ¶ˆ");
 
                 if (confirm)
                 {
                     _recordService.ClearAllRecords();
                     
                     await Application.Current.MainPage.DisplayAlert(
-                        "³É¹¦",
-                        "ËùÓĞ¼ÇÂ¼ÒÑÇå¿Õ",
-                        "È·¶¨");
+                        "æˆåŠŸ",
+                        "æ‰€æœ‰è®°å½•å·²æ¸…ç©º",
+                        "ç¡®å®š");
                     
-                    // Êı¾İÇå¿Õºó£¬MessagingCenter »á×Ô¶¯Í¨Öª MainViewModel Ë¢ĞÂ
+                    // æ¸…ç©ºåMessagingCenterä¼šè‡ªåŠ¨é€šçŸ¥MainViewModelåˆ·æ–°
                 }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Çå¿ÕÊı¾İÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"æ¸…ç©ºæ•°æ®å¤±è´¥: {ex.Message}");
                 
                 await Application.Current!.MainPage!.DisplayAlert(
-                    "´íÎó",
-                    "Çå¿ÕÊı¾İÊ§°Ü£¬ÇëÖØÊÔ",
-                    "È·¶¨");
+                    "é”™è¯¯",
+                    "æ¸…ç©ºæ•°æ®å¤±è´¥ï¼Œè¯·é‡è¯•",
+                    "ç¡®å®š");
             }
         }
 
@@ -192,7 +192,7 @@ namespace zuoleme.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"±£´æÉèÖÃÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"ä¿å­˜è®¾ç½®å¤±è´¥: {ex.Message}");
             }
         }
 
@@ -209,7 +209,7 @@ namespace zuoleme.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"¼ÓÔØÖ÷ÌâÉèÖÃÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"åŠ è½½ä¸»é¢˜è®¾ç½®å¤±è´¥: {ex.Message}");
             }
         }
 
@@ -226,7 +226,7 @@ namespace zuoleme.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"±£´æÖ÷ÌâÉèÖÃÊ§°Ü: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"ä¿å­˜ä¸»é¢˜è®¾ç½®å¤±è´¥: {ex.Message}");
             }
         }
 
@@ -238,7 +238,7 @@ namespace zuoleme.ViewModels
             }
             catch
             {
-                RecommendedWeeklyCount = 3; // Ä¬ÈÏÖµ
+                RecommendedWeeklyCount = 3; // é»˜è®¤å€¼
             }
         }
 
