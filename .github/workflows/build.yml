@@ -13,6 +13,36 @@ permissions:
   contents: read
 
 jobs:
+build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install MAUI workload
+        run: dotnet workload install maui-maccatalyst maui-ios
+
+      - name: Restore dependencies
+        run: dotnet restore zuoleme.csproj /p:TargetFramework=net10.0-maccatalyst
+
+      - name: Build macOS Catalyst
+        run: dotnet build zuoleme.csproj -c Release /p:TargetFramework=net10.0-maccatalyst
+
+      - name: Publish macOS Catalyst
+        run: dotnet publish zuoleme.csproj -c Release /p:TargetFramework=net10.0-maccatalyst -p:CreatePackage=true
+
+      - name: Upload macOS App
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-app
+          path: |
+            **/bin/Release/net10.0-maccatalyst/publish/**/*.app
+            **/bin/Release/net10.0-maccatalyst/**/*.pkg
  build-android:
     runs-on: ubuntu-latest
     steps:
@@ -66,14 +96,6 @@ jobs:
     
     - name: Build Windows MSIX
       run: dotnet publish zuoleme.csproj -c Release -f net10.0-windows10.0.19041.0 /p:TargetFrameworks=net10.0-windows10.0.19041.0 /p:RuntimeIdentifierOverride=win10-x64
-    
-    - name: Upload Windows MSIX
-      uses: actions/upload-artifact@v4
-      with:
-        name: windows-msix
-        path: obj/Release/net10.0-windows10.0.19041.0/win-x64/MsixContent/MSIX/*.msix
-        if-no-files-found: warn
-    
     - name: Upload Windows Executables
       uses: actions/upload-artifact@v4
       with:
