@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 jobs:
-build-macos:
+ build-macos:
     runs-on: macos-latest
     steps:
       - name: Checkout code
