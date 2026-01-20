@@ -18,20 +18,33 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
+      
       - name: Install MAUI workload
         run: dotnet workload install maui-windows
+      
       - name: Restore dependencies
-        run: dotnet restore zuoleme.csproj  -p:TargetFramework=net10.0-windows10.0.19041.0
+        run: dotnet restore zuoleme.csproj /p:TargetFrameworks=net10.0-windows10.0.19041.0
+      
       - name: Build Windows MSIX
         run: dotnet publish zuoleme.csproj -c Release -f net10.0-windows10.0.19041.0 /p:TargetFrameworks=net10.0-windows10.0.19041.0 /p:RuntimeIdentifierOverride=win10-x64
-      - name: Upload Windows MSIX
+      
+      - name: List all build outputs
+        run: |
+          Write-Host "=== Searching for MSIX files ==="
+          Get-ChildItem -Path . -Recurse -Include *.msix -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_.FullName }
+          Write-Host "`n=== Searching for EXE files ==="
+          Get-ChildItem -Path . -Recurse -Include *.exe -ErrorAction SilentlyContinue | Where-Object { $_.DirectoryName -like "*publish*" } | ForEach-Object { Write-Host $_.FullName }
+          Write-Host "`n=== Listing bin/Release directory structure ==="
+          Get-ChildItem -Path .\bin\Release -Recurse -ErrorAction SilentlyContinue | Select-Object FullName | Format-Table -AutoSize
+      
+      - name: Upload Windows Build (All files)
         uses: actions/upload-artifact@v4
         with:
-          name: windows-msix
-          path: |
-            **/AppPackages/**/*.msix
-            **/bin/Release/net10.0-windows10.0.19041.0/win10-x64/publish/**
+          name: windows-build
+          path: bin/Release/net10.0-windows10.0.19041.0/win10-x64/publish/
+          if-no-files-found: warn
