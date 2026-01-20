@@ -24,8 +24,14 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: '11'
+
       - name: Install MAUI workload
-        run: dotnet workload install maui
+        run: dotnet workload install maui-android
 
       - name: Restore dependencies
         run: dotnet restore zuoleme.csproj
@@ -64,7 +70,7 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Install MAUI workload
-        run: dotnet workload install maui
+        run: dotnet workload install maui-windows
 
       - name: Restore dependencies
         run: dotnet restore zuoleme.csproj
@@ -92,7 +98,7 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Install MAUI workload
-        run: dotnet workload install maui
+        run: dotnet workload install maui-maccatalyst maui-ios
 
       - name: Restore dependencies
         run: dotnet restore zuoleme.csproj
