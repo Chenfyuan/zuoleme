@@ -39,9 +39,6 @@ jobs:
       - name: Build Android APK
         run: dotnet build zuoleme.csproj -c Release /p:TargetFrameworks=net10.0-android /p:AndroidPackageFormat=apk
 
-      - name: Build Android AAB
-        run: dotnet publish zuoleme.csproj -c Release /p:TargetFrameworks=net10.0-android /p:AndroidPackageFormat=aab
-
       - name: Upload Android APK
         uses: actions/upload-artifact@v4
         with:
@@ -49,14 +46,6 @@ jobs:
           path: |
             **/*-Signed.apk
             **/com.linweijian.zuoleme-Signed.apk
-
-      - name: Upload Android AAB
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-aab
-          path: |
-            **/*-Signed.aab
-            **/com.linweijian.zuoleme-Signed.aab
 
  build-windows:
   runs-on: windows-latest
