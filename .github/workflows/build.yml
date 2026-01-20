@@ -73,7 +73,7 @@ jobs:
         run: dotnet workload install maui-windows
 
       - name: Restore dependencies
-        run: dotnet restore zuoleme.csproj -f net10.0-windows10.0.19041.0
+        run: dotnet restore zuoleme.csproj
 
       - name: Build Windows MSIX
         run: dotnet publish zuoleme.csproj -c Release -f net10.0-windows10.0.19041.0 -p:RuntimeIdentifierOverride=win10-x64
