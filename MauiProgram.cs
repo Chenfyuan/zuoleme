@@ -16,7 +16,7 @@ namespace zuoleme
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                    fonts.AddFont("MaterialSymbolsRounded.ttf", "MaterialIcons");
+                    fonts.AddFont("MaterialSymbolsRounded.ttf", "MaterialSymbolsRounded");
                 })
                 .ConfigureMauiHandlers(handlers =>
                 {
@@ -42,12 +42,12 @@ namespace zuoleme
             builder.Services.AddSingleton<RecordService>();
             builder.Services.AddSingleton<HealthService>();
             builder.Services.AddSingleton<ThemeService>();
-            
+
             // Register ViewModels
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<CalendarViewModel>();
             builder.Services.AddSingleton<SettingsViewModel>();
-            
+
             // Register pages - 使用 Transient 而不是 Singleton，让 Shell 缓存页面
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<StatsPage>();
@@ -55,7 +55,7 @@ namespace zuoleme
             builder.Services.AddTransient<SettingsPage>();
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

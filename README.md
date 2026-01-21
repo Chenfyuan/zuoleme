@@ -1,28 +1,33 @@
 # 做了么 APP
 
-做了么APP，支持android、ios、windows等，记录生活点滴。
+做了么APP，支持android、ios、windows、macOS等，记录生活点滴。
 
 ## 📱 应用截图
 
-### 首页展示
+### 🖥️ macOS 版本
 <table>
   <tr>
-    <td><img src="pic/正常.png" width="200"/><br/><center>首页 - 正常状态</center></td>
-    <td><img src="pic/普通.png" width="200"/><br/><center>首页 - 普通状态</center></td>
-    <td><img src="pic/高频.png" width="200"/><br/><center>首页 - 高频状态</center></td>
-    <td><img src="pic/灰飞烟灭.png" width="200"/><br/><center>首页 - 灰飞烟灭状态</center></td>
+    <td><img src="pic/macos/主页.png" /><br/><center>主页</center></td>
+    <td><img src="pic/macos/统计.png"/><br/><center>统计页面</center></td>
+  </tr>
+  <tr>
+    <td><img src="pic/macos/日历.png"/><br/><center>日历视图</center></td>
+    <td><img src="pic/macos/设置.png"/><br/><center>设置页面</center></td>
   </tr>
 </table>
 
-### 其他页面
+### 🤖 Android 版本
+
 <table>
   <tr>
-    <td><img src="pic/统计.png" width="200"/><br/><center>统计页面</center></td>
-    <td><img src="pic/日历.png" width="200"/><br/><center>日历视图</center></td>
-    <td><img src="pic/设置.png" width="200"/><br/><center>设置页面</center></td>
-    <td><img src="pic/图标.png" width="200"/><br/><center>应用图标</center></td>
+    <td><img src="pic/android/主页.png" width="200"/><br/><center>主页（Android）</center></td>
+    <td><img src="pic/android/统计.png" width="200"/><br/><center>统计（Android）</center></td>
+    <td><img src="pic/android/日历.png" width="200"/><br/><center>日历（Android）</center></td>
+    <td><img src="pic/android/设置.png" width="200"/><br/><center>设置（Android）</center></td>
   </tr>
 </table>
+
+
 
 ## 功能特点
 
@@ -120,13 +125,13 @@ dotnet run -f net10.0-ios
 
 - [ ] 添加备注功能
 - [ ] 数据导出和导入功能
-- [ ] 统计图表可视化
+- [x] 统计图表可视化
 - [ ] 提醒功能
 - [ ] 深色模式
 - [ ] 密码保护隐私实现
 - [ ] 云同步数据选项
 - [ ] 更多统计维度（获取更远期的时间段）
-- [ ] 数据可视化（热力图、折线统计图）
+- [x] 数据可视化（热力图、折线统计图）
 - [ ] 更多数据管理实现
 - [ ] 使用说明页面
 - [ ] 版本更新记录

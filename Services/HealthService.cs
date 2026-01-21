@@ -92,7 +92,7 @@ namespace zuoleme.Services
                         Title = "频率过高",
                         Message = "建议适当降低频率，注意休息",
                         Color = "#EF5350",
-                        Icon = "\ue000", // MaterialIcons.Error - 错误图标
+                        Icon = "error.png",
                         ProgressColor = "#EF5350",
                         BackgroundStartColor = "#FFEBEE",
                         BackgroundEndColor = "#FFCDD2",
@@ -107,7 +107,7 @@ namespace zuoleme.Services
                         Title = "频率偏高",
                         Message = "可适当降低频率，保持健康",
                         Color = "#FF9800",
-                        Icon = "\ue002", // MaterialIcons.Warning - 警告图标
+                        Icon = "warning.png",
                         ProgressColor = "#FF9800",
                         BackgroundStartColor = "#FFF3E0",
                         BackgroundEndColor = "#FFE0B2",
@@ -122,7 +122,7 @@ namespace zuoleme.Services
                         Title = "频率良好",
                         Message = "保持当前的节奏，非常健康",
                         Color = "#4CAF50",
-                        Icon = "\ue86c", // MaterialIcons.CheckCircle - 成功图标
+                        Icon = "check_circle.png",
                         ProgressColor = "#4CAF50",
                         BackgroundStartColor = "#E8F5E9",
                         BackgroundEndColor = "#C8E6C9",
@@ -137,7 +137,7 @@ namespace zuoleme.Services
                         Title = "频率正常",
                         Message = "一切正常，继续保持！",
                         Color = "#2196F3",
-                        Icon = "\ue88e", // MaterialIcons.Info - 信息图标
+                        Icon = "info.png",
                         ProgressColor = "#2196F3",
                         BackgroundStartColor = "#E3F2FD",
                         BackgroundEndColor = "#BBDEFB",
@@ -154,7 +154,7 @@ namespace zuoleme.Services
                     Title = "健康状态",
                     Message = "状态正常",
                     Color = "#2196F3",
-                    Icon = "\ue88e", // MaterialIcons.Info - 信息图标
+                    Icon = "info.png",
                     ProgressColor = "#2196F3",
                     BackgroundStartColor = "#E3F2FD",
                     BackgroundEndColor = "#BBDEFB",

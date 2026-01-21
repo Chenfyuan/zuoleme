@@ -87,6 +87,82 @@ namespace zuoleme.Services
             return _records.Count(r => r.Timestamp.Date >= startOfMonth);
         }
 
+        /// <summary>
+        /// 获取最近7天每天的记录数
+        /// </summary>
+        public Dictionary<DateTime, int> GetLast7DaysStats()
+        {
+            var result = new Dictionary<DateTime, int>();
+            var today = DateTime.Today;
+
+            for (int i = 6; i >= 0; i--)
+            {
+                var date = today.AddDays(-i);
+                var count = _records.Count(r => r.Timestamp.Date == date);
+                result[date] = count;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 获取最近6个月每月的记录数
+        /// </summary>
+        public Dictionary<(int Year, int Month), int> GetLast6MonthsStats()
+        {
+            var result = new Dictionary<(int Year, int Month), int>();
+            var today = DateTime.Today;
+
+            for (int i = 5; i >= 0; i--)
+            {
+                var date = today.AddMonths(-i);
+                var key = (date.Year, date.Month);
+                var count = _records.Count(r =>
+                    r.Timestamp.Year == date.Year && r.Timestamp.Month == date.Month);
+                result[key] = count;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 获取当月每天的记录数（用于热力图）
+        /// </summary>
+        public Dictionary<DateTime, int> GetCurrentMonthDailyStats()
+        {
+            var result = new Dictionary<DateTime, int>();
+            var today = DateTime.Today;
+            var startOfMonth = new DateTime(today.Year, today.Month, 1);
+            var daysInMonth = DateTime.DaysInMonth(today.Year, today.Month);
+
+            for (int day = 1; day <= daysInMonth; day++)
+            {
+                var date = new DateTime(today.Year, today.Month, day);
+                var count = _records.Count(r => r.Timestamp.Date == date);
+                result[date] = count;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 获取最近30天的每日记录数（用于折线图）
+        /// </summary>
+        public Dictionary<DateTime, int> GetLast30DaysStats()
+        {
+            var result = new Dictionary<DateTime, int>();
+            var today = DateTime.Today;
+
+            for (int i = 29; i >= 0; i--)
+            {
+                var date = today.AddDays(-i);
+                var count = _records.Count(r => r.Timestamp.Date == date);
+                result[date] = count;
+            }
+
+            return result;
+        }
+
         private void LoadRecords()
         {
             try
@@ -112,15 +188,15 @@ namespace zuoleme.Services
             {
                 // 等待100ms，合并多次快速保存
                 await Task.Delay(100);
-                
+
                 await _saveLock.WaitAsync();
                 try
                 {
-                    var json = JsonSerializer.Serialize(_records, new JsonSerializerOptions 
-                    { 
+                    var json = JsonSerializer.Serialize(_records, new JsonSerializerOptions
+                    {
                         WriteIndented = false // 不格式化，减少文件大小
                     });
-                    
+
                     await File.WriteAllTextAsync(_dataFilePath, json);
                     System.Diagnostics.Debug.WriteLine($"保存了 {_records.Count} 条记录");
                 }

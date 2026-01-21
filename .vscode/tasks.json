@@ -1,0 +1,89 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "maui-build-maccatalyst",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/zuoleme.csproj",
+                "-f",
+                "net10.0-maccatalyst",
+                "-c",
+                "Release"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "maui-build-maccatalyst-debug",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/zuoleme.csproj",
+                "-f",
+                "net10.0-maccatalyst",
+                "-c",
+                "Debug"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "clean",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "clean",
+                "${workspaceFolder}/zuoleme.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "maui-run-maccatalyst",
+            "command": "open",
+            "type": "shell",
+            "args": [
+                "${workspaceFolder}/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/做了么.app"
+            ],
+            "dependsOn": "maui-build-maccatalyst-debug",
+            "problemMatcher": []
+        },
+        {
+            "label": "maui-build-android",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/zuoleme.csproj",
+                "-f",
+                "net10.0-android",
+                "-c",
+                "Debug"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": "build"
+        },
+        {
+            "label": "maui-install-android",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/zuoleme.csproj",
+                "-t:Run",
+                "-f",
+                "net10.0-android"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

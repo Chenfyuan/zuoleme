@@ -15,12 +15,12 @@ namespace zuoleme.Views
             InitializeComponent();
             BindingContext = viewModel;
             _viewModel = viewModel;
-            
+
             // 启用页面缓存，避免每次切换都重新创建
             Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific.Page.SetToolbarPlacement(
-                this, 
+                this,
                 Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific.ToolbarPlacement.Bottom);
-            
+
             // 监听健康状态变化，更新颜色
             _viewModel.PropertyChanged += (s, e) =>
             {
@@ -31,7 +31,7 @@ namespace zuoleme.Views
                     UpdateColors();
                 }
             };
-            
+
             UpdateColors();
         }
 
@@ -55,7 +55,7 @@ namespace zuoleme.Views
                 // 更新健康卡片的背景
                 var startColorString = _viewModel.HealthBackgroundStartColor;
                 var endColorString = _viewModel.HealthBackgroundEndColor;
-                
+
                 if (!string.IsNullOrEmpty(startColorString) && !string.IsNullOrEmpty(endColorString))
                 {
                     var gradient = new LinearGradientBrush
@@ -63,19 +63,19 @@ namespace zuoleme.Views
                         StartPoint = new Point(0, 0),
                         EndPoint = new Point(1, 1)
                     };
-                    
-                    gradient.GradientStops.Add(new GradientStop 
-                    { 
-                        Color = Color.FromArgb(startColorString), 
-                        Offset = 0.0f 
+
+                    gradient.GradientStops.Add(new GradientStop
+                    {
+                        Color = Color.FromArgb(startColorString),
+                        Offset = 0.0f
                     });
-                    
-                    gradient.GradientStops.Add(new GradientStop 
-                    { 
-                        Color = Color.FromArgb(endColorString), 
-                        Offset = 1.0f 
+
+                    gradient.GradientStops.Add(new GradientStop
+                    {
+                        Color = Color.FromArgb(endColorString),
+                        Offset = 1.0f
                     });
-                    
+
                     HealthCard.Background = gradient;
                 }
 
@@ -84,7 +84,7 @@ namespace zuoleme.Views
                 if (!string.IsNullOrEmpty(buttonColorString))
                 {
                     var buttonColor = Color.FromArgb(buttonColorString);
-                    
+
                     // 创建略深的渐变色
                     var darkerColor = Color.FromRgba(
                         (int)(buttonColor.Red * 0.8 * 255),
@@ -92,27 +92,27 @@ namespace zuoleme.Views
                         (int)(buttonColor.Blue * 0.8 * 255),
                         (int)(buttonColor.Alpha * 255)
                     );
-                    
+
                     var buttonGradient = new LinearGradientBrush
                     {
                         StartPoint = new Point(0, 0),
                         EndPoint = new Point(1, 1)
                     };
-                    
-                    buttonGradient.GradientStops.Add(new GradientStop 
-                    { 
-                        Color = buttonColor, 
-                        Offset = 0.0f 
+
+                    buttonGradient.GradientStops.Add(new GradientStop
+                    {
+                        Color = buttonColor,
+                        Offset = 0.0f
                     });
-                    
-                    buttonGradient.GradientStops.Add(new GradientStop 
-                    { 
-                        Color = darkerColor, 
-                        Offset = 1.0f 
+
+                    buttonGradient.GradientStops.Add(new GradientStop
+                    {
+                        Color = darkerColor,
+                        Offset = 1.0f
                     });
-                    
+
                     MainButton.Background = buttonGradient;
-                    
+
                     // 设置阴影颜色
                     MainButton.Shadow = new Shadow
                     {
@@ -158,7 +158,7 @@ namespace zuoleme.Views
                 // 2. 弹起动画：放大反弹 + 旋转恢复 + 弹性效果
                 var bounceAnimation = MainButton.ScaleToAsync(1.15, 150, Easing.CubicOut);
                 var rotateBackAnimation = MainButton.RotateToAsync(0, 150, Easing.CubicOut);
-                
+
                 await Task.WhenAll(bounceAnimation, rotateBackAnimation);
 
                 // 3. 回到正常大小
@@ -223,8 +223,8 @@ namespace zuoleme.Views
 
                     // 获取当前健康状态的颜色作为粒子颜色
                     var particleColorString = _viewModel.ButtonBackgroundColor;
-                    var particleColor = !string.IsNullOrEmpty(particleColorString) 
-                        ? Color.FromArgb(particleColorString) 
+                    var particleColor = !string.IsNullOrEmpty(particleColorString)
+                        ? Color.FromArgb(particleColorString)
                         : Color.FromArgb("#E91E63"); // 默认粉色
 
                     var random = new Random();
@@ -234,13 +234,12 @@ namespace zuoleme.Views
 
                     for (int i = 0; i < particleCount; i++)
                     {
-                        // 创建爱心粒子（使用心形图标）
-                        var particle = new Label
+                        // 创建爱心粒子（使用心形图片）
+                        var particle = new Image
                         {
-                            Text = "\ue87d", // MaterialIcons.Favorite
-                            FontFamily = "MaterialIcons",
-                            FontSize = random.Next(24, 40),
-                            TextColor = particleColor, // 使用健康状态颜色
+                            Source = "favorite.png",
+                            HeightRequest = random.Next(24, 40),
+                            WidthRequest = random.Next(24, 40),
                             Opacity = 1.0
                         };
 
@@ -248,7 +247,7 @@ namespace zuoleme.Views
                         var angle = (360.0 / particleCount) * i;
                         var radians = angle * Math.PI / 180.0;
                         var distance = random.Next(100, 200);
-                        
+
                         var targetX = buttonCenterX + Math.Cos(radians) * distance;
                         var targetY = buttonCenterY + Math.Sin(radians) * distance;
 
@@ -265,11 +264,11 @@ namespace zuoleme.Views
                             {
                                 // 飞出 + 淡出 + 旋转
                                 var translateTask = particle.TranslateToAsync(
-                                    targetX - buttonCenterX, 
-                                    targetY - buttonCenterY, 
-                                    800, 
+                                    targetX - buttonCenterX,
+                                    targetY - buttonCenterY,
+                                    800,
                                     Easing.CubicOut);
-                                
+
                                 var fadeTask = particle.FadeToAsync(0, 800, Easing.CubicIn);
                                 var rotateTask = particle.RotateToAsync(random.Next(180, 360), 800, Easing.Linear);
                                 var scaleTask = particle.ScaleToAsync(0.5, 800, Easing.CubicIn);

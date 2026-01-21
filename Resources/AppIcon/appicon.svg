@@ -6,17 +6,20 @@
       <stop offset="100%" style="stop-color:#ee5a6f;stop-opacity:1" />
     </linearGradient>
   </defs>
-  
+
   <!-- 圆角矩形背景 -->
-  <rect width="1024" height="1024" rx="180" fill="url(#bgGradient)"/>
-  
-  <!-- 文字 "做了么" -->
-  <text x="512" y="580" 
-        font-family="Arial, Microsoft YaHei, sans-serif" 
-        font-size="280" 
-        font-weight="bold" 
-        fill="white" 
-        text-anchor="middle"
-        letter-spacing="10">做了么</text>
-  
+  <rect width="1024" height="1024" rx="180" fill="url(#bgGradient)" />
+
+  <!-- 安全区缩放（Android Adaptive Icon 友好） -->
+  <g transform="translate(512 512) scale(0.66) translate(-512 -512)">
+    <text x="512" y="580"
+          font-family="Arial, Microsoft YaHei, sans-serif"
+          font-size="280"
+          font-weight="bold"
+          fill="white"
+          text-anchor="middle"
+          letter-spacing="10">
+      做了么
+    </text>
+  </g>
 </svg>

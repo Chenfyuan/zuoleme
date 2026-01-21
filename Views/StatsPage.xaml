@@ -1,40 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:constants="clr-namespace:zuoleme.Constants"
+             xmlns:converters="clr-namespace:zuoleme.Converters"
              x:Class="zuoleme.Views.StatsPage"
              Title="统计"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
 
+    <ContentPage.Resources>
+        <converters:InvertedHeightConverter x:Key="InvertedHeightConverter"/>
+    </ContentPage.Resources>
+
     <ScrollView>
-        <VerticalStackLayout Padding="24" Spacing="24">
-     
+        <VerticalStackLayout Padding="24"
+                             Spacing="24">
+
 
             <!-- Statistics Cards -->
-            <Grid ColumnDefinitions="*,*" 
+            <Grid ColumnDefinitions="*,*"
                   RowDefinitions="Auto,Auto"
                   ColumnSpacing="12"
                   RowSpacing="12"
                   Margin="0,10,0,20">
-                
+
                 <!-- Today -->
-                <Border Grid.Row="0" Grid.Column="0"
-                       BackgroundColor="{DynamicResource CardBackground}"
-                       StrokeThickness="0"
-                       Padding="16"
-                       HeightRequest="120">
+                <Border Grid.Row="0"
+                        Grid.Column="0"
+                        BackgroundColor="{DynamicResource CardBackground}"
+                        StrokeThickness="0"
+                        Padding="16"
+                        HeightRequest="120">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
                     </Border.StrokeShape>
                     <Border.Shadow>
-                        <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                        <Shadow Brush="Black"
+                                Opacity="0.1"
+                                Radius="8"
+                                Offset="0,2"/>
                     </Border.Shadow>
-                    <VerticalStackLayout Spacing="8" VerticalOptions="Center">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
-                            <Label Text="{x:Static constants:MaterialIcons.Event}"
-                                   FontFamily="MaterialIcons"
-                                   FontSize="20"
-                                   TextColor="{DynamicResource Gray600}"/>
+                    <VerticalStackLayout Spacing="8"
+                                         VerticalOptions="Center">
+                        <HorizontalStackLayout HorizontalOptions="Center"
+                                               Spacing="8">
+                            <Image Source="event.png"
+                                   HeightRequest="20"
+                                   WidthRequest="20"/>
                             <Label Text="今日"
                                    FontSize="16"
                                    FontAttributes="Bold"
@@ -49,23 +59,28 @@
                 </Border>
 
                 <!-- Week -->
-                <Border Grid.Row="0" Grid.Column="1"
-                       BackgroundColor="{DynamicResource CardBackground}"
-                       StrokeThickness="0"
-                       Padding="16"
-                       HeightRequest="120">
+                <Border Grid.Row="0"
+                        Grid.Column="1"
+                        BackgroundColor="{DynamicResource CardBackground}"
+                        StrokeThickness="0"
+                        Padding="16"
+                        HeightRequest="120">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
                     </Border.StrokeShape>
                     <Border.Shadow>
-                        <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                        <Shadow Brush="Black"
+                                Opacity="0.1"
+                                Radius="8"
+                                Offset="0,2"/>
                     </Border.Shadow>
-                    <VerticalStackLayout Spacing="8" VerticalOptions="Center">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
-                            <Label Text="{x:Static constants:MaterialIcons.CalendarToday}"
-                                   FontFamily="MaterialIcons"
-                                   FontSize="20"
-                                   TextColor="{DynamicResource Gray600}"/>
+                    <VerticalStackLayout Spacing="8"
+                                         VerticalOptions="Center">
+                        <HorizontalStackLayout HorizontalOptions="Center"
+                                               Spacing="8">
+                            <Image Source="calendar_today.png"
+                                   HeightRequest="20"
+                                   WidthRequest="20"/>
                             <Label Text="本周"
                                    FontSize="16"
                                    FontAttributes="Bold"
@@ -80,23 +95,28 @@
                 </Border>
 
                 <!-- Month -->
-                <Border Grid.Row="1" Grid.Column="0"
-                       BackgroundColor="{DynamicResource CardBackground}"
-                       StrokeThickness="0"
-                       Padding="16"
-                       HeightRequest="120">
+                <Border Grid.Row="1"
+                        Grid.Column="0"
+                        BackgroundColor="{DynamicResource CardBackground}"
+                        StrokeThickness="0"
+                        Padding="16"
+                        HeightRequest="120">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
                     </Border.StrokeShape>
                     <Border.Shadow>
-                        <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                        <Shadow Brush="Black"
+                                Opacity="0.1"
+                                Radius="8"
+                                Offset="0,2"/>
                     </Border.Shadow>
-                    <VerticalStackLayout Spacing="8" VerticalOptions="Center">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
-                            <Label Text="{x:Static constants:MaterialIcons.CalendarToday}"
-                                   FontFamily="MaterialIcons"
-                                   FontSize="20"
-                                   TextColor="{DynamicResource Gray600}"/>
+                    <VerticalStackLayout Spacing="8"
+                                         VerticalOptions="Center">
+                        <HorizontalStackLayout HorizontalOptions="Center"
+                                               Spacing="8">
+                            <Image Source="calendar_today.png"
+                                   HeightRequest="20"
+                                   WidthRequest="20"/>
                             <Label Text="本月"
                                    FontSize="16"
                                    FontAttributes="Bold"
@@ -111,23 +131,28 @@
                 </Border>
 
                 <!-- Total -->
-                <Border Grid.Row="1" Grid.Column="1"
-                       BackgroundColor="{DynamicResource CardBackground}"
-                       StrokeThickness="0"
-                       Padding="16"
-                       HeightRequest="120">
+                <Border Grid.Row="1"
+                        Grid.Column="1"
+                        BackgroundColor="{DynamicResource CardBackground}"
+                        StrokeThickness="0"
+                        Padding="16"
+                        HeightRequest="120">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="16"/>
                     </Border.StrokeShape>
                     <Border.Shadow>
-                        <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                        <Shadow Brush="Black"
+                                Opacity="0.1"
+                                Radius="8"
+                                Offset="0,2"/>
                     </Border.Shadow>
-                    <VerticalStackLayout Spacing="8" VerticalOptions="Center">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="8">
-                            <Label Text="{x:Static constants:MaterialIcons.TrendingUp}"
-                                   FontFamily="MaterialIcons"
-                                   FontSize="20"
-                                   TextColor="{DynamicResource Gray600}"/>
+                    <VerticalStackLayout Spacing="8"
+                                         VerticalOptions="Center">
+                        <HorizontalStackLayout HorizontalOptions="Center"
+                                               Spacing="8">
+                            <Image Source="trending_up.png"
+                                   HeightRequest="20"
+                                   WidthRequest="20"/>
                             <Label Text="总计"
                                    FontSize="16"
                                    FontAttributes="Bold"
@@ -142,12 +167,354 @@
                 </Border>
             </Grid>
 
+            <!-- Weekly Chart -->
+            <Border BackgroundColor="{DynamicResource CardBackground}"
+                    StrokeThickness="0"
+                    Padding="20"
+                    Margin="0,10,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Opacity="0.1"
+                            Radius="8"
+                            Offset="0,2"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="16">
+                    <HorizontalStackLayout Spacing="8">
+                        <Image Source="bar_chart.png"
+                               HeightRequest="24"
+                               WidthRequest="24"/>
+                        <Label Text="最近7天"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource Gray900}"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Bar Chart -->
+                    <Grid HeightRequest="150">
+                        <CollectionView ItemsSource="{Binding WeeklyChartData}"
+                                        ItemsLayout="HorizontalList"
+                                        HorizontalOptions="Fill">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <VerticalStackLayout Spacing="4"
+                                                         WidthRequest="44"
+                                                         VerticalOptions="End"
+                                                         HorizontalOptions="Center">
+                                        <!-- Count Label -->
+                                        <Label Text="{Binding Count}"
+                                               FontSize="12"
+                                               FontAttributes="Bold"
+                                               TextColor="{DynamicResource Gray600}"
+                                               HorizontalOptions="Center"/>
+                                        <!-- Bar -->
+                                        <BoxView BackgroundColor="{Binding BarColor}"
+                                                 HeightRequest="{Binding BarHeight}"
+                                                 WidthRequest="28"
+                                                 CornerRadius="4"
+                                                 HorizontalOptions="Center"/>
+                                        <!-- Day Label -->
+                                        <Label Text="{Binding DayLabel}"
+                                               FontSize="12"
+                                               TextColor="{DynamicResource Gray600}"
+                                               HorizontalOptions="Center"/>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Monthly Chart -->
+            <Border BackgroundColor="{DynamicResource CardBackground}"
+                    StrokeThickness="0"
+                    Padding="20"
+                    Margin="0,10,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Opacity="0.1"
+                            Radius="8"
+                            Offset="0,2"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="16">
+                    <HorizontalStackLayout Spacing="8">
+                        <Image Source="insights.png"
+                               HeightRequest="24"
+                               WidthRequest="24"/>
+                        <Label Text="月度趋势"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource Gray900}"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Horizontal Bar Chart -->
+                    <VerticalStackLayout Spacing="12">
+                        <CollectionView ItemsSource="{Binding MonthlyChartData}"
+                                        SelectionMode="None">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="50,*,40"
+                                          RowDefinitions="Auto"
+                                          Padding="0,4"
+                                          ColumnSpacing="8">
+                                        <!-- Month Label -->
+                                        <Label Grid.Column="0"
+                                               Text="{Binding MonthLabel}"
+                                               FontSize="14"
+                                               TextColor="{DynamicResource Gray600}"
+                                               VerticalOptions="Center"/>
+                                        <!-- Bar Container -->
+                                        <Grid Grid.Column="1"
+                                              HeightRequest="24">
+                                            <!-- Background Bar -->
+                                            <BoxView BackgroundColor="{DynamicResource Gray200}"
+                                                     CornerRadius="4"
+                                                     HorizontalOptions="Fill"/>
+                                            <!-- Progress Bar -->
+                                            <BoxView BackgroundColor="{Binding BarColor}"
+                                                     CornerRadius="4"
+                                                     HorizontalOptions="Start"
+                                                     WidthRequest="{Binding BarWidth}"/>
+                                        </Grid>
+                                        <!-- Count -->
+                                        <Label Grid.Column="2"
+                                               Text="{Binding Count}"
+                                               FontSize="14"
+                                               FontAttributes="Bold"
+                                               TextColor="{DynamicResource Gray700}"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="End"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Heatmap - 本月热力图 -->
+            <Border BackgroundColor="{DynamicResource CardBackground}"
+                    StrokeThickness="0"
+                    Padding="20"
+                    Margin="0,10,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Opacity="0.1"
+                            Radius="8"
+                            Offset="0,2"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="16">
+                    <HorizontalStackLayout Spacing="8">
+                        <Image Source="grid_view.png"
+                               HeightRequest="24"
+                               WidthRequest="24"/>
+                        <Label Text="{Binding CurrentMonthLabel, StringFormat='{0} 热力图'}"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource Gray900}"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Weekday Headers -->
+                    <Grid ColumnDefinitions="*,*,*,*,*,*,*"
+                          ColumnSpacing="4"
+                          Margin="0,0,0,4">
+                        <Label Grid.Column="0"
+                               Text="日"
+                               FontSize="12"
+                               TextColor="{DynamicResource Gray500}"
+                               HorizontalOptions="Center"/>
+                        <Label Grid.Column="1"
+                               Text="一"
+                               FontSize="12"
+                               TextColor="{DynamicResource Gray500}"
+                               HorizontalOptions="Center"/>
+                        <Label Grid.Column="2"
+                               Text="二"
+                               FontSize="12"
+                               TextColor="{DynamicResource Gray500}"
+                               HorizontalOptions="Center"/>
+                        <Label Grid.Column="3"
+                               Text="三"
+                               FontSize="12"
+                               TextColor="{DynamicResource Gray500}"
+                               HorizontalOptions="Center"/>
+                        <Label Grid.Column="4"
+                               Text="四"
+                               FontSize="12"
+                               TextColor="{DynamicResource Gray500}"
+                               HorizontalOptions="Center"/>
+                        <Label Grid.Column="5"
+                               Text="五"
+                               FontSize="12"
+                               TextColor="{DynamicResource Gray500}"
+                               HorizontalOptions="Center"/>
+                        <Label Grid.Column="6"
+                               Text="六"
+                               FontSize="12"
+                               TextColor="{DynamicResource Gray500}"
+                               HorizontalOptions="Center"/>
+                    </Grid>
+
+                    <!-- Heatmap Grid -->
+                    <FlexLayout Wrap="Wrap"
+                                Direction="Row"
+                                JustifyContent="Start"
+                                AlignItems="Start">
+                        <BindableLayout.ItemsSource>
+                            <Binding Path="HeatmapData"/>
+                        </BindableLayout.ItemsSource>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Border BackgroundColor="{Binding CellColor}"
+                                        StrokeThickness="0"
+                                        WidthRequest="38"
+                                        HeightRequest="38"
+                                        Margin="2">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="6"/>
+                                    </Border.StrokeShape>
+                                    <Label Text="{Binding DayOfMonth}"
+                                           FontSize="11"
+                                           TextColor="{DynamicResource Gray700}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+
+                    <!-- Legend -->
+                    <HorizontalStackLayout Spacing="8"
+                                           HorizontalOptions="Center"
+                                           Margin="0,8,0,0">
+                        <Label Text="少"
+                               FontSize="11"
+                               TextColor="{DynamicResource Gray500}"
+                               VerticalOptions="Center"/>
+                        <BoxView BackgroundColor="#EEEEEE"
+                                 WidthRequest="16"
+                                 HeightRequest="16"
+                                 CornerRadius="3"/>
+                        <BoxView BackgroundColor="#C8E6C9"
+                                 WidthRequest="16"
+                                 HeightRequest="16"
+                                 CornerRadius="3"/>
+                        <BoxView BackgroundColor="#81C784"
+                                 WidthRequest="16"
+                                 HeightRequest="16"
+                                 CornerRadius="3"/>
+                        <BoxView BackgroundColor="#4CAF50"
+                                 WidthRequest="16"
+                                 HeightRequest="16"
+                                 CornerRadius="3"/>
+                        <BoxView BackgroundColor="#2E7D32"
+                                 WidthRequest="16"
+                                 HeightRequest="16"
+                                 CornerRadius="3"/>
+                        <Label Text="多"
+                               FontSize="11"
+                               TextColor="{DynamicResource Gray500}"
+                               VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Line Chart - 30天趋势折线图 -->
+            <Border BackgroundColor="{DynamicResource CardBackground}"
+                    StrokeThickness="0"
+                    Padding="20"
+                    Margin="0,10,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Opacity="0.1"
+                            Radius="8"
+                            Offset="0,2"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="16">
+                    <HorizontalStackLayout Spacing="8">
+                        <Image Source="show_chart.png"
+                               HeightRequest="24"
+                               WidthRequest="24"/>
+                        <Label Text="30天趋势"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource Gray900}"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Area Chart Style -->
+                    <Grid HeightRequest="120"
+                          Padding="0,10">
+                        <!-- Background Grid Lines -->
+                        <BoxView BackgroundColor="{DynamicResource Gray200}"
+                                 HeightRequest="1"
+                                 VerticalOptions="Start"/>
+                        <BoxView BackgroundColor="{DynamicResource Gray200}"
+                                 HeightRequest="1"
+                                 VerticalOptions="Center"/>
+                        <BoxView BackgroundColor="{DynamicResource Gray200}"
+                                 HeightRequest="1"
+                                 VerticalOptions="End"/>
+
+                        <!-- Data Bars (mini bars for each day) -->
+                        <CollectionView ItemsSource="{Binding LineChartData}"
+                                        ItemsLayout="HorizontalList"
+                                        HorizontalOptions="Fill">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid WidthRequest="11"
+                                          HeightRequest="100">
+                                        <!-- Bar -->
+                                        <BoxView BackgroundColor="#9C27B0"
+                                                 WidthRequest="8"
+                                                 VerticalOptions="End"
+                                                 HeightRequest="{Binding Y, Converter={StaticResource InvertedHeightConverter}}"
+                                                 HorizontalOptions="Center"
+                                                 CornerRadius="2"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+
+                    <!-- X-Axis Labels -->
+                    <Grid ColumnDefinitions="*,*,*,*,*">
+                        <Label Grid.Column="0"
+                               Text="30天前"
+                               FontSize="10"
+                               TextColor="{DynamicResource Gray500}"
+                               HorizontalOptions="Start"/>
+                        <Label Grid.Column="2"
+                               Text="15天前"
+                               FontSize="10"
+                               TextColor="{DynamicResource Gray500}"
+                               HorizontalOptions="Center"/>
+                        <Label Grid.Column="4"
+                               Text="今天"
+                               FontSize="10"
+                               TextColor="{DynamicResource Gray500}"
+                               HorizontalOptions="End"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
             <!-- All Records Section -->
-            <HorizontalStackLayout Spacing="8" Margin="0,20,0,10">
-                <Label Text="{x:Static constants:MaterialIcons.Description}"
-                       FontFamily="MaterialIcons"
-                       FontSize="28"
-                       TextColor="{DynamicResource Gray900}"/>
+            <HorizontalStackLayout Spacing="8"
+                                   Margin="0,20,0,10">
+                <Image Source="description.png"
+                       HeightRequest="28"
+                       WidthRequest="28"/>
                 <Label Text="所有记录"
                        FontSize="24"
                        FontAttributes="Bold"
@@ -169,17 +536,20 @@
                                                CommandParameter="{Binding Id}"/>
                                 </SwipeItems>
                             </SwipeView.RightItems>
-                            
+
                             <Border BackgroundColor="{DynamicResource CardBackground}"
-                                   StrokeThickness="0"
-                                   Padding="0">
+                                    StrokeThickness="0"
+                                    Padding="0">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="12"/>
                                 </Border.StrokeShape>
                                 <Border.Shadow>
-                                    <Shadow Brush="Black" Opacity="0.1" Radius="8" Offset="0,2"/>
+                                    <Shadow Brush="Black"
+                                            Opacity="0.1"
+                                            Radius="8"
+                                            Offset="0,2"/>
                                 </Border.Shadow>
-                                <Grid ColumnDefinitions="Auto,*,Auto" 
+                                <Grid ColumnDefinitions="Auto,*,Auto"
                                       Padding="16"
                                       ColumnSpacing="12">
                                     <!-- Icon -->
@@ -192,27 +562,25 @@
                                         <Border.StrokeShape>
                                             <RoundRectangle CornerRadius="24"/>
                                         </Border.StrokeShape>
-                                        <Label Text="{x:Static constants:MaterialIcons.Favorite}"
-                                               FontFamily="MaterialIcons"
-                                               FontSize="28"
-                                               TextColor="White"
+                                        <Image Source="favorite.png"
+                                               HeightRequest="28"
+                                               WidthRequest="28"
                                                HorizontalOptions="Center"
                                                VerticalOptions="Center"/>
                                     </Border>
-                                    
+
                                     <!-- Date and Time -->
-                                    <VerticalStackLayout Grid.Column="1" 
-                                                       Spacing="4"
-                                                       VerticalOptions="Center">
+                                    <VerticalStackLayout Grid.Column="1"
+                                                         Spacing="4"
+                                                         VerticalOptions="Center">
                                         <Label Text="{Binding Timestamp, StringFormat='{0:yyyy年MM月dd日}'}"
                                                FontSize="16"
                                                FontAttributes="Bold"
                                                TextColor="{DynamicResource Gray900}"/>
                                         <HorizontalStackLayout Spacing="6">
-                                            <Label Text="{x:Static constants:MaterialIcons.Schedule}"
-                                                   FontFamily="MaterialIcons"
-                                                   FontSize="16"
-                                                   TextColor="{DynamicResource Gray600}"
+                                            <Image Source="schedule.png"
+                                                   HeightRequest="16"
+                                                   WidthRequest="16"
                                                    VerticalOptions="Center"/>
                                             <Label Text="{Binding Timestamp, StringFormat='{0:HH:mm:ss}'}"
                                                    FontSize="14"
@@ -220,13 +588,12 @@
                                                    VerticalOptions="Center"/>
                                         </HorizontalStackLayout>
                                     </VerticalStackLayout>
-                                    
+
                                     <!-- Arrow -->
-                                    <Label Grid.Column="2"
-                                           Text="{x:Static constants:MaterialIcons.ChevronRight}"
-                                           FontFamily="MaterialIcons"
-                                           FontSize="32"
-                                           TextColor="{DynamicResource Gray400}"
+                                    <Image Grid.Column="2"
+                                           Source="chevron_right.png"
+                                           HeightRequest="32"
+                                           WidthRequest="32"
                                            VerticalOptions="Center"/>
                                 </Grid>
                             </Border>

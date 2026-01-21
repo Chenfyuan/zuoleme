@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET MAUI (macOS)",
+            "type": "maui",
+            "request": "launch",
+            "preLaunchTask": "maui-build-maccatalyst",
+            "targetFramework": "net10.0-maccatalyst",
+            "targetArchitecture": "arm64"
+        },
+        {
+            "name": ".NET MAUI Debug (macOS)",
+            "type": "maui",
+            "request": "launch",
+            "preLaunchTask": "maui-build-maccatalyst-debug",
+            "targetFramework": "net10.0-maccatalyst",
+            "targetArchitecture": "arm64",
+            "configuration": "Debug"
+        },
+        {
+            "name": ".NET MAUI (Android)",
+            "type": "maui",
+            "request": "launch",
+            "preLaunchTask": "maui-build-android",
+            "targetFramework": "net10.0-android",
+            "configuration": "Debug"
+        }
+    ]
+}

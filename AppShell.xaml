@@ -6,53 +6,33 @@
     xmlns:views="clr-namespace:zuoleme.Views"
     xmlns:constants="clr-namespace:zuoleme.Constants"
     Title="做了么"
-    Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False">
 
+    <!-- 使用 TabBar 底部导航 -->
     <TabBar>
-        <ShellContent
-            Title="主页"
-            ContentTemplate="{DataTemplate views:HomePage}"
-            Route="HomePage">
-            <ShellContent.Icon>
-                <FontImageSource Glyph="{x:Static constants:MaterialIcons.Home}" 
-                                FontFamily="MaterialIcons"
-                                Size="24"/>
-            </ShellContent.Icon>
-        </ShellContent>
+        <Tab Title="主页"
+             Icon="Resources/Images/home.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}"
+                          Route="HomePage"/>
+        </Tab>
 
-        <ShellContent
-            Title="统计"
-            ContentTemplate="{DataTemplate views:StatsPage}"
-            Route="StatsPage">
-            <ShellContent.Icon>
-                <FontImageSource Glyph="{x:Static constants:MaterialIcons.Assessment}" 
-                                FontFamily="MaterialIcons"
-                                Size="24"/>
-            </ShellContent.Icon>
-        </ShellContent>
+        <Tab Title="统计"
+             Icon="Resources/Images/stats.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:StatsPage}"
+                          Route="StatsPage"/>
+        </Tab>
 
-        <ShellContent
-            Title="日历"
-            ContentTemplate="{DataTemplate views:CalendarPage}"
-            Route="CalendarPage">
-            <ShellContent.Icon>
-                <FontImageSource Glyph="{x:Static constants:MaterialIcons.CalendarToday}" 
-                                FontFamily="MaterialIcons"
-                                Size="24"/>
-            </ShellContent.Icon>
-        </ShellContent>
+        <Tab Title="日历"
+             Icon="Resources/Images/calendar.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:CalendarPage}"
+                          Route="CalendarPage"/>
+        </Tab>
 
-        <ShellContent
-            Title="设置"
-            ContentTemplate="{DataTemplate views:SettingsPage}"
-            Route="SettingsPage">
-            <ShellContent.Icon>
-                <FontImageSource Glyph="{x:Static constants:MaterialIcons.Settings}" 
-                                FontFamily="MaterialIcons"
-                                Size="24"/>
-            </ShellContent.Icon>
-        </ShellContent>
+        <Tab Title="设置"
+             Icon="Resources/Images/settings.svg">
+            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}"
+                          Route="SettingsPage"/>
+        </Tab>
     </TabBar>
 
 </Shell>

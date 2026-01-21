@@ -1,14 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
-  <!-- 透明背景 -->
+  <!-- 透明背景（Adaptive Icon 前景层） -->
   <rect width="1024" height="1024" fill="none"/>
-  
-  <!-- 文字 "做了么" - 白色 -->
-  <text x="512" y="580" 
-        font-family="Arial, Microsoft YaHei, sans-serif" 
-        font-size="280" 
-        font-weight="bold" 
-        fill="white" 
-        text-anchor="middle"
-        letter-spacing="10">做了么</text>
-  
+
+  <!-- 安全区缩放（Android Adaptive Icon 友好） -->
+  <g transform="translate(512 512) scale(0.6) translate(-512 -512)">
+    <text x="512" y="580"
+          font-family="Arial, Microsoft YaHei, sans-serif"
+          font-size="280"
+          font-weight="bold"
+          fill="white"
+          text-anchor="middle"
+          letter-spacing="10">
+      做了么
+    </text>
+  </g>
 </svg>
