@@ -1,0 +1,75 @@
+name: Build Multi-Platform
+
+on:
+  push:
+    branches: [ master, main ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+ build-android:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version: '11'
+
+      - name: Install MAUI workload
+        run: dotnet workload install maui-android
+
+      - name: Restore dependencies
+        run: dotnet restore zuoleme.csproj /p:TargetFrameworks=net10.0-android
+
+      - name: Build Android APK
+        run: dotnet build zuoleme.csproj -c Release /p:TargetFrameworks=net10.0-android /p:AndroidPackageFormat=apk
+
+      - name: Upload Android APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: |
+            **/*-Signed.apk
+            **/com.linweijian.zuoleme-Signed.apk
+
+ build-windows:
+  runs-on: windows-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+    
+    - name: Install MAUI workload
+      run: dotnet workload install maui-windows
+    
+    - name: Restore dependencies
+      run: dotnet restore zuoleme.csproj /p:TargetFrameworks=net10.0-windows10.0.19041.0
+    
+    - name: Build Windows MSIX
+      run: dotnet publish zuoleme.csproj -c Release -f net10.0-windows10.0.19041.0 /p:TargetFrameworks=net10.0-windows10.0.19041.0 /p:RuntimeIdentifierOverride=win10-x64
+    - name: Upload Windows Executables
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-exe
+        path: bin/Release/net10.0-windows10.0.19041.0/win-x64/publish/
+        if-no-files-found: warn
+        
