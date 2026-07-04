@@ -43,19 +43,67 @@ namespace zuoleme.ViewModels
         public ICommand PreviousMonthCommand { get; }
         public ICommand NextMonthCommand { get; }
         public ICommand TodayCommand { get; }
+        public ICommand ShowDayCommand { get; }
 
         public CalendarViewModel(RecordService recordService)
         {
             _recordService = recordService;
             CalendarDays = new ObservableCollection<CalendarDay>();
-            
+
             CurrentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            
+
             PreviousMonthCommand = new Command(PreviousMonth);
             NextMonthCommand = new Command(NextMonth);
             TodayCommand = new Command(GoToToday);
+            ShowDayCommand = new Command<CalendarDay>(async (day) => await ShowDayDetailAsync(day));
 
             LoadCalendarData();
+        }
+
+        private async Task ShowDayDetailAsync(CalendarDay? day)
+        {
+            try
+            {
+                if (day == null || day.RecordCount == 0 || Application.Current?.MainPage == null) return;
+
+                var options = day.Records
+                    .OrderBy(r => r.Timestamp)
+                    .Select(r => string.IsNullOrWhiteSpace(r.Note)
+                        ? r.Timestamp.ToString("HH:mm:ss")
+                        : $"{r.Timestamp:HH:mm:ss} - {r.Note}")
+                    .ToArray();
+
+                var choice = await Application.Current.MainPage.DisplayActionSheet(
+                    $"{day.Date:yyyy-MM-dd} 的记录（{day.RecordCount} 次）",
+                    "取消",
+                    null,
+                    options);
+
+                if (string.IsNullOrEmpty(choice) || choice == "取消") return;
+
+                var index = Array.IndexOf(options, choice);
+                if (index < 0) return;
+
+                var record = day.Records.OrderBy(r => r.Timestamp).ElementAt(index);
+                var result = await Application.Current.MainPage.DisplayPromptAsync(
+                    "编辑备注",
+                    $"记录时间：{record.Timestamp:yyyy-MM-dd HH:mm}",
+                    "保存",
+                    "取消",
+                    placeholder: "添加备注...",
+                    maxLength: 200,
+                    initialValue: record.Note ?? "");
+
+                if (result != null)
+                {
+                    _recordService.UpdateRecordNote(record.Id, result);
+                    LoadCalendarData();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"查看当日记录失败: {ex.Message}");
+            }
         }
 
         private void PreviousMonth()

@@ -87,6 +87,115 @@ namespace zuoleme.Services
             return _records.Count(r => r.Timestamp.Date >= startOfMonth);
         }
 
+        public int GetYearCount()
+        {
+            var startOfYear = new DateTime(DateTime.Today.Year, 1, 1);
+            return _records.Count(r => r.Timestamp.Date >= startOfYear);
+        }
+
+        /// <summary>
+        /// 更新记录备注
+        /// </summary>
+        public bool UpdateRecordNote(Guid id, string? note)
+        {
+            var record = _records.FirstOrDefault(r => r.Id == id);
+            if (record == null) return false;
+
+            record.Note = string.IsNullOrWhiteSpace(note) ? null : note.Trim();
+            SaveRecordsAsync();
+            SendDataChangedMessage(DataChangeType.RecordUpdated);
+            return true;
+        }
+
+        /// <summary>
+        /// 最长连续记录天数（以有记录的自然日为单位）
+        /// </summary>
+        public int GetLongestStreak()
+        {
+            var distinctDays = _records
+                .Select(r => r.Timestamp.Date)
+                .Distinct()
+                .OrderBy(d => d)
+                .ToList();
+
+            if (distinctDays.Count == 0) return 0;
+
+            int longest = 1;
+            int current = 1;
+            for (int i = 1; i < distinctDays.Count; i++)
+            {
+                if ((distinctDays[i] - distinctDays[i - 1]).Days == 1)
+                {
+                    current++;
+                    longest = Math.Max(longest, current);
+                }
+                else
+                {
+                    current = 1;
+                }
+            }
+
+            return longest;
+        }
+
+        /// <summary>
+        /// 平均间隔天数（相邻两次有记录的自然日之间的平均天数）
+        /// </summary>
+        public double GetAverageIntervalDays()
+        {
+            var distinctDays = _records
+                .Select(r => r.Timestamp.Date)
+                .Distinct()
+                .OrderBy(d => d)
+                .ToList();
+
+            if (distinctDays.Count < 2) return 0;
+
+            var totalSpan = (distinctDays[^1] - distinctDays[0]).Days;
+            return Math.Round(totalSpan / (double)(distinctDays.Count - 1), 1);
+        }
+
+        /// <summary>
+        /// 导出所有记录为 JSON 字符串
+        /// </summary>
+        public string ExportRecordsToJson()
+        {
+            return JsonSerializer.Serialize(_records, new JsonSerializerOptions { WriteIndented = true });
+        }
+
+        /// <summary>
+        /// 从 JSON 字符串导入记录
+        /// </summary>
+        /// <param name="json">导出的 JSON 内容</param>
+        /// <param name="merge">true=与现有数据合并（跳过重复 Id），false=替换全部数据</param>
+        /// <returns>实际导入的记录数量</returns>
+        public int ImportRecordsFromJson(string json, bool merge)
+        {
+            var importedRecords = JsonSerializer.Deserialize<List<Record>>(json);
+            if (importedRecords == null || importedRecords.Count == 0)
+            {
+                return 0;
+            }
+
+            int importedCount;
+            if (merge)
+            {
+                var existingIds = _records.Select(r => r.Id).ToHashSet();
+                var newRecords = importedRecords.Where(r => !existingIds.Contains(r.Id)).ToList();
+                _records.AddRange(newRecords);
+                importedCount = newRecords.Count;
+            }
+            else
+            {
+                _records = importedRecords;
+                importedCount = importedRecords.Count;
+            }
+
+            SaveRecordsAsync();
+            SendDataChangedMessage(DataChangeType.DataImported);
+            return importedCount;
+        }
+
         /// <summary>
         /// 获取最近7天每天的记录数
         /// </summary>

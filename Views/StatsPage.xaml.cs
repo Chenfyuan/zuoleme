@@ -16,8 +16,8 @@ namespace zuoleme.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            // 不需要重新加载数据，ViewModel 通过消息机制自动同步
-            System.Diagnostics.Debug.WriteLine("StatsPage appeared - 使用缓存数据");
+            // 涓嶉渶瑕侀噸鏂板姞杞芥暟鎹紝ViewModel 閫氳繃娑堟伅鏈哄埗鑷姩鍚屾
+            System.Diagnostics.Debug.WriteLine("StatsPage appeared - 浣跨敤缂撳瓨鏁版嵁");
         }
 
         protected override void OnDisappearing()

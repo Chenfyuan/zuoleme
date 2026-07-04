@@ -8,6 +8,7 @@
 
     <ContentPage.Resources>
         <converters:InvertedHeightConverter x:Key="InvertedHeightConverter"/>
+        <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
     </ContentPage.Resources>
 
     <ScrollView>
@@ -162,6 +163,98 @@
                                FontSize="36"
                                FontAttributes="Bold"
                                TextColor="{DynamicResource Gray900}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- More Dimensions -->
+            <Grid ColumnDefinitions="*,*,*"
+                  ColumnSpacing="10">
+
+                <!-- Year -->
+                <Border Grid.Column="0"
+                        BackgroundColor="{DynamicResource CardBackground}"
+                        StrokeThickness="0"
+                        Padding="10"
+                        HeightRequest="90">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                                Opacity="0.1"
+                                Radius="8"
+                                Offset="0,2"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="4"
+                                         VerticalOptions="Center">
+                        <Label Text="今年"
+                               FontSize="13"
+                               TextColor="{DynamicResource Gray600}"
+                               HorizontalOptions="Center"/>
+                        <Label Text="{Binding YearCount}"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource Primary}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Longest Streak -->
+                <Border Grid.Column="1"
+                        BackgroundColor="{DynamicResource CardBackground}"
+                        StrokeThickness="0"
+                        Padding="10"
+                        HeightRequest="90">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                                Opacity="0.1"
+                                Radius="8"
+                                Offset="0,2"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="4"
+                                         VerticalOptions="Center">
+                        <Label Text="最长连续"
+                               FontSize="13"
+                               TextColor="{DynamicResource Gray600}"
+                               HorizontalOptions="Center"/>
+                        <Label Text="{Binding LongestStreak, StringFormat='{0} 天'}"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource Secondary}"
+                               HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Average Interval -->
+                <Border Grid.Column="2"
+                        BackgroundColor="{DynamicResource CardBackground}"
+                        StrokeThickness="0"
+                        Padding="10"
+                        HeightRequest="90">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                                Opacity="0.1"
+                                Radius="8"
+                                Offset="0,2"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="4"
+                                         VerticalOptions="Center">
+                        <Label Text="平均间隔"
+                               FontSize="13"
+                               TextColor="{DynamicResource Gray600}"
+                               HorizontalOptions="Center"/>
+                        <Label Text="{Binding AverageIntervalText}"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource Tertiary}"
                                HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </Border>
@@ -549,6 +642,10 @@
                                             Radius="8"
                                             Offset="0,2"/>
                                 </Border.Shadow>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditNoteCommand}"
+                                                           CommandParameter="{Binding Id}"/>
+                                </Border.GestureRecognizers>
                                 <Grid ColumnDefinitions="Auto,*,Auto"
                                       Padding="16"
                                       ColumnSpacing="12">
@@ -587,6 +684,11 @@
                                                    TextColor="{DynamicResource Gray600}"
                                                    VerticalOptions="Center"/>
                                         </HorizontalStackLayout>
+                                        <Label Text="{Binding Note}"
+                                               FontSize="12"
+                                               TextColor="{DynamicResource Gray500}"
+                                               LineBreakMode="TailTruncation"
+                                               IsVisible="{Binding Note, Converter={StaticResource StringNotEmptyConverter}}"/>
                                     </VerticalStackLayout>
 
                                     <!-- Arrow -->

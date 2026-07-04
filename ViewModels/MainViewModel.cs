@@ -21,6 +21,9 @@ namespace zuoleme.ViewModels
         private int _todayCount;
         private int _weekCount;
         private int _monthCount;
+        private int _yearCount;
+        private int _longestStreak;
+        private double _averageIntervalDays;
         private int _age;
         private int _recommendedWeeklyCount = 3;
         private HealthStatus? _healthStatus;
@@ -69,6 +72,39 @@ namespace zuoleme.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public int YearCount
+        {
+            get => _yearCount;
+            set
+            {
+                _yearCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int LongestStreak
+        {
+            get => _longestStreak;
+            set
+            {
+                _longestStreak = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double AverageIntervalDays
+        {
+            get => _averageIntervalDays;
+            set
+            {
+                _averageIntervalDays = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(AverageIntervalText));
+            }
+        }
+
+        public string AverageIntervalText => AverageIntervalDays > 0 ? $"{AverageIntervalDays} 天" : "--";
 
         public int Age
         {
@@ -181,6 +217,7 @@ namespace zuoleme.ViewModels
         public ICommand AddRecordCommand { get; }
         public ICommand DeleteRecordCommand { get; }
         public ICommand RefreshCommand { get; }
+        public ICommand EditNoteCommand { get; }
 
         public MainViewModel(RecordService recordService, HealthService healthService)
         {
@@ -196,6 +233,7 @@ namespace zuoleme.ViewModels
             AddRecordCommand = new Command(AddRecord);
             DeleteRecordCommand = new Command<Guid>(DeleteRecord);
             RefreshCommand = new Command(LoadData);
+            EditNoteCommand = new Command<Guid>(async (id) => await EditNoteAsync(id));
 
             try
             {
@@ -348,6 +386,33 @@ namespace zuoleme.ViewModels
             }
         }
 
+        private async Task EditNoteAsync(Guid id)
+        {
+            try
+            {
+                var record = Records.FirstOrDefault(r => r.Id == id) ?? RecentRecords.FirstOrDefault(r => r.Id == id);
+                if (record == null || Application.Current?.MainPage == null) return;
+
+                var result = await Application.Current.MainPage.DisplayPromptAsync(
+                    "编辑备注",
+                    $"记录时间：{record.Timestamp:yyyy-MM-dd HH:mm}",
+                    "保存",
+                    "取消",
+                    placeholder: "添加备注...",
+                    maxLength: 200,
+                    initialValue: record.Note ?? "");
+
+                if (result != null)
+                {
+                    _recordService.UpdateRecordNote(id, result);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"编辑备注失败: {ex.Message}");
+            }
+        }
+
         private void DeleteRecord(Guid id)
         {
             try
@@ -375,6 +440,9 @@ namespace zuoleme.ViewModels
                 TodayCount = _recordService.GetTodayCount();
                 WeekCount = _recordService.GetWeekCount();
                 MonthCount = _recordService.GetMonthCount();
+                YearCount = _recordService.GetYearCount();
+                LongestStreak = _recordService.GetLongestStreak();
+                AverageIntervalDays = _recordService.GetAverageIntervalDays();
 
                 // 优化：只在数据真正变化时更新 ObservableCollection
                 var allRecords = _recordService.GetAllRecords();

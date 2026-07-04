@@ -3,26 +3,18 @@ using System.Globalization;
 namespace zuoleme.Converters
 {
     /// <summary>
-    /// 反转布尔值转换器
+    /// 判断字符串是否非空，用于控制备注文本的可见性
     /// </summary>
-    public class InvertedBoolConverter : IValueConverter
+    public class StringNotEmptyConverter : IValueConverter
     {
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is bool boolValue)
-            {
-                return !boolValue;
-            }
-            return false;
+            return !string.IsNullOrWhiteSpace(value as string);
         }
 
         public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value is bool boolValue)
-            {
-                return !boolValue;
-            }
-            return false;
+            throw new NotImplementedException();
         }
     }
 }

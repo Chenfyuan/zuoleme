@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
 using zuoleme.Services;
 using zuoleme.ViewModels;
 using zuoleme.Views;
@@ -12,6 +13,7 @@ namespace zuoleme
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseLocalNotification()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -42,17 +44,22 @@ namespace zuoleme
             builder.Services.AddSingleton<RecordService>();
             builder.Services.AddSingleton<HealthService>();
             builder.Services.AddSingleton<ThemeService>();
+            builder.Services.AddSingleton<PrivacyService>();
+            builder.Services.AddSingleton<ReminderService>();
 
             // Register ViewModels
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<CalendarViewModel>();
             builder.Services.AddSingleton<SettingsViewModel>();
+            builder.Services.AddTransient<LockViewModel>();
 
             // Register pages - 使用 Transient 而不是 Singleton，让 Shell 缓存页面
             builder.Services.AddTransient<HomePage>();
             builder.Services.AddTransient<StatsPage>();
             builder.Services.AddTransient<CalendarPage>();
             builder.Services.AddTransient<SettingsPage>();
+            builder.Services.AddTransient<LockPage>();
+            builder.Services.AddTransient<InfoPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

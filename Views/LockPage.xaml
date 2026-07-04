@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="zuoleme.Views.LockPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="KeypadButtonStyle" TargetType="Button">
+                <Setter Property="WidthRequest" Value="72"/>
+                <Setter Property="HeightRequest" Value="72"/>
+                <Setter Property="CornerRadius" Value="36"/>
+                <Setter Property="FontSize" Value="26"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource CardBackground}"/>
+                <Setter Property="TextColor" Value="{DynamicResource Gray900}"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Padding="24"
+          RowDefinitions="Auto,Auto,Auto,Auto,*">
+
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0"
+                             HorizontalOptions="Center"
+                             Spacing="8"
+                             Margin="0,60,0,0">
+            <Image Source="favorite.png"
+                   HeightRequest="56"
+                   WidthRequest="56"
+                   HorizontalOptions="Center"/>
+            <Label Text="做了么"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="{DynamicResource Gray900}"
+                   HorizontalOptions="Center"/>
+            <Label Text="请输入密码解锁"
+                   FontSize="16"
+                   TextColor="{DynamicResource Gray600}"
+                   HorizontalOptions="Center"
+                   Margin="0,8,0,0"/>
+        </VerticalStackLayout>
+
+        <!-- PIN Dots -->
+        <HorizontalStackLayout Grid.Row="1"
+                               HorizontalOptions="Center"
+                               Spacing="20"
+                               Margin="0,32,0,0">
+            <Border WidthRequest="16"
+                    HeightRequest="16"
+                    StrokeThickness="1.5"
+                    Stroke="{DynamicResource Primary}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8"/>
+                </Border.StrokeShape>
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding Dot1Filled}" Value="True">
+                        <Setter Property="BackgroundColor" Value="{DynamicResource Primary}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding Dot1Filled}" Value="False">
+                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                    </DataTrigger>
+                </Border.Triggers>
+            </Border>
+            <Border WidthRequest="16"
+                    HeightRequest="16"
+                    StrokeThickness="1.5"
+                    Stroke="{DynamicResource Primary}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8"/>
+                </Border.StrokeShape>
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding Dot2Filled}" Value="True">
+                        <Setter Property="BackgroundColor" Value="{DynamicResource Primary}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding Dot2Filled}" Value="False">
+                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                    </DataTrigger>
+                </Border.Triggers>
+            </Border>
+            <Border WidthRequest="16"
+                    HeightRequest="16"
+                    StrokeThickness="1.5"
+                    Stroke="{DynamicResource Primary}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8"/>
+                </Border.StrokeShape>
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding Dot3Filled}" Value="True">
+                        <Setter Property="BackgroundColor" Value="{DynamicResource Primary}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding Dot3Filled}" Value="False">
+                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                    </DataTrigger>
+                </Border.Triggers>
+            </Border>
+            <Border WidthRequest="16"
+                    HeightRequest="16"
+                    StrokeThickness="1.5"
+                    Stroke="{DynamicResource Primary}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8"/>
+                </Border.StrokeShape>
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding Dot4Filled}" Value="True">
+                        <Setter Property="BackgroundColor" Value="{DynamicResource Primary}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding Dot4Filled}" Value="False">
+                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                    </DataTrigger>
+                </Border.Triggers>
+            </Border>
+        </HorizontalStackLayout>
+
+        <!-- Error Message -->
+        <Label Grid.Row="2"
+               Text="{Binding ErrorMessage}"
+               IsVisible="{Binding HasError}"
+               FontSize="14"
+               TextColor="#EF5350"
+               HorizontalOptions="Center"
+               Margin="0,16,0,0"/>
+
+        <!-- Keypad -->
+        <Grid Grid.Row="3"
+              ColumnDefinitions="*,*,*"
+              RowDefinitions="Auto,Auto,Auto,Auto"
+              ColumnSpacing="28"
+              RowSpacing="16"
+              HorizontalOptions="Center"
+              Margin="0,40,0,0">
+
+            <Button Grid.Row="0" Grid.Column="0" Text="1" Command="{Binding DigitCommand}" CommandParameter="1" Style="{StaticResource KeypadButtonStyle}"/>
+            <Button Grid.Row="0" Grid.Column="1" Text="2" Command="{Binding DigitCommand}" CommandParameter="2" Style="{StaticResource KeypadButtonStyle}"/>
+            <Button Grid.Row="0" Grid.Column="2" Text="3" Command="{Binding DigitCommand}" CommandParameter="3" Style="{StaticResource KeypadButtonStyle}"/>
+
+            <Button Grid.Row="1" Grid.Column="0" Text="4" Command="{Binding DigitCommand}" CommandParameter="4" Style="{StaticResource KeypadButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="1" Text="5" Command="{Binding DigitCommand}" CommandParameter="5" Style="{StaticResource KeypadButtonStyle}"/>
+            <Button Grid.Row="1" Grid.Column="2" Text="6" Command="{Binding DigitCommand}" CommandParameter="6" Style="{StaticResource KeypadButtonStyle}"/>
+
+            <Button Grid.Row="2" Grid.Column="0" Text="7" Command="{Binding DigitCommand}" CommandParameter="7" Style="{StaticResource KeypadButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="1" Text="8" Command="{Binding DigitCommand}" CommandParameter="8" Style="{StaticResource KeypadButtonStyle}"/>
+            <Button Grid.Row="2" Grid.Column="2" Text="9" Command="{Binding DigitCommand}" CommandParameter="9" Style="{StaticResource KeypadButtonStyle}"/>
+
+            <BoxView Grid.Row="3" Grid.Column="0" Color="Transparent"/>
+            <Button Grid.Row="3" Grid.Column="1" Text="0" Command="{Binding DigitCommand}" CommandParameter="0" Style="{StaticResource KeypadButtonStyle}"/>
+            <Button Grid.Row="3" Grid.Column="2" Text="&#x232B;" Command="{Binding DeleteCommand}" Style="{StaticResource KeypadButtonStyle}" FontSize="22"/>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
