@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:zuoleme.Converters"
              x:Class="zuoleme.Views.HomePage"
              Title="主页"
              BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <ContentPage.Resources>
+        <converters:StringNotEmptyConverter x:Key="StringNotEmptyConverter"/>
+    </ContentPage.Resources>
 
     <ScrollView>
         <Grid>
@@ -259,6 +264,10 @@
                                                 Radius="8"
                                                 Offset="0,2"/>
                                     </Border.Shadow>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditNoteCommand}"
+                                                               CommandParameter="{Binding Id}"/>
+                                    </Border.GestureRecognizers>
                                     <Grid ColumnDefinitions="Auto,*,Auto"
                                           Padding="16"
                                           ColumnSpacing="12">
@@ -297,6 +306,11 @@
                                                        TextColor="{DynamicResource Gray600}"
                                                        VerticalOptions="Center"/>
                                             </HorizontalStackLayout>
+                                            <Label Text="{Binding Note}"
+                                                   FontSize="12"
+                                                   TextColor="{DynamicResource Gray500}"
+                                                   LineBreakMode="TailTruncation"
+                                                   IsVisible="{Binding Note, Converter={StaticResource StringNotEmptyConverter}}"/>
                                         </VerticalStackLayout>
 
                                         <!-- Arrow -->

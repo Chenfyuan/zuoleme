@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="zuoleme.Views.InfoPage"
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24"
+                             Spacing="16">
+            <Label x:Name="TitleLabel"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   TextColor="{DynamicResource Gray900}"/>
+            <Label x:Name="BodyLabel"
+                   FontSize="15"
+                   LineHeight="1.6"
+                   TextColor="{DynamicResource Gray700}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
