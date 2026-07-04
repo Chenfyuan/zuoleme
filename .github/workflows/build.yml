@@ -34,10 +34,10 @@ jobs:
         run: dotnet workload install maui-android
 
       - name: Build Android APK
-        run: dotnet build zuoleme.csproj -c Release -f net10.0-android /p:AndroidPackageFormat=apk
+        run: dotnet build zuoleme.csproj -c Release -p:SingleTargetFramework=net10.0-android /p:AndroidPackageFormat=apk
 
       - name: Build Android AAB
-        run: dotnet publish zuoleme.csproj -c Release -f net10.0-android /p:AndroidPackageFormat=aab
+        run: dotnet publish zuoleme.csproj -c Release -p:SingleTargetFramework=net10.0-android /p:AndroidPackageFormat=aab
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v4
@@ -70,7 +70,7 @@ jobs:
         run: dotnet workload install maui-windows
 
       - name: Build Windows MSIX
-        run: dotnet publish zuoleme.csproj -c Release -f net10.0-windows10.0.19041.0 -p:RuntimeIdentifierOverride=win10-x64
+        run: dotnet publish zuoleme.csproj -c Release -p:SingleTargetFramework=net10.0-windows10.0.19041.0 -p:RuntimeIdentifierOverride=win10-x64
 
       - name: Upload Windows MSIX
         uses: actions/upload-artifact@v4
@@ -96,10 +96,10 @@ jobs:
         run: dotnet workload install maui-maccatalyst maui-ios
 
       - name: Build macOS Catalyst
-        run: dotnet build zuoleme.csproj -c Release -f net10.0-maccatalyst
+        run: dotnet build zuoleme.csproj -c Release -p:SingleTargetFramework=net10.0-maccatalyst
 
       - name: Publish macOS Catalyst
-        run: dotnet publish zuoleme.csproj -c Release -f net10.0-maccatalyst -p:CreatePackage=true
+        run: dotnet publish zuoleme.csproj -c Release -p:SingleTargetFramework=net10.0-maccatalyst -p:CreatePackage=true
 
       - name: Upload macOS App
         uses: actions/upload-artifact@v4
